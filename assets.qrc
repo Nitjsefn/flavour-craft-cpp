@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/assets">
+        <file>ui/Assets/OIG.png</file>
+        <file>ui/Assets/sushi.jpg</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>ui/UpperPhoto/UpperPhoto.qml</file>
+        <file>ui/AboutDish/AboutDish.qml</file>
+        <file>ui/DishIngredients/DishIngredients.qml</file>
+        <file>pages/MainPage.qml</file>
+        <file>pages/TestPage.qml</file>
+    </qresource>
+</RCC>
