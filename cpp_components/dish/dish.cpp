@@ -1,31 +1,26 @@
 #include "dish.h"
-#include "qdebug.h"
+#include <QDebug>
 
+
+
+using namespace std;
 
 
 
 Dish::Dish(QObject *parent)
     :QObject{parent}
 {
-
+    this->dishName = "dishName";
+    this->dishDescription = "dishDescription";
+    this->dishIndegrients = "dishIndegrients";
+    this->dishPhotoLink = "dishPhotoLink";
 }
 
-//RunesImporter::RunesImporter(QObject *parent)
-//    : QObject{parent}
 
-
-Dish::Dish(QString dishName,
-           QString dishCousine,
-           QString dishDescription,
-           QString dishIndegrients,
-           int dishLevel)
+/*Dish::Dish()
 {
-    this->dishName = dishName;
-    this->dishCousine  = dishCousine;
-    this->dishDescription = dishDescription;
-    this->dishIndegrients = dishIndegrients;
-    this->dishLevel = dishLevel;
-}
+
+}*/
 
 
 Dish::~Dish()
@@ -34,14 +29,39 @@ Dish::~Dish()
 }
 
 
-void Dish::loadDish(QString dishName)
+void Dish::loadDish(QString dishName, QString dishDescription, QString dishIndegrients, QString dishPhotoLink)
 {
-    qDebug()<< dishName;
+    this->dishName = dishName;
+    this->dishDescription = dishDescription;
+    this->dishIndegrients = dishIndegrients;
+    this->dishPhotoLink = dishPhotoLink;
+    return;
+}
+
+void Dish::searchDish(QString dishName)
+{
+    qDebug() << dishName;
+
     return;
 }
 
 
-void Dish::httpreq()
+void Dish::testFuntion_1()
 {
     qDebug()<< "test";
+    return;
+}
+
+
+void Dish::testFuntion_2()
+{
+    qDebug()<< "test";
+    return;
+}
+
+
+void Dish::testFuntion_3()
+{
+    qDebug()<< "test";
+    return;
 }

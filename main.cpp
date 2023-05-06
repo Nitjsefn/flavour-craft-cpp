@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);    
     QQmlApplicationEngine engine;
 
-    Dish *dish_handler = new  Dish;
+    Dish *dish_handler = new Dish();
     engine.rootContext()->setContextProperty("dish_handler",dish_handler);
 
     const QUrl url(u"qrc:/FlavorCraft/Main.qml"_qs);

@@ -12,28 +12,26 @@ class Dish: public QObject
     Q_OBJECT
     public:
         explicit Dish(QObject *parent = nullptr);
-
-        //Dish();
-        Dish(QString dishName,
-             QString dishCousine,
-             QString dishDescription,
-             QString dishIndegrients,
-             int dishLevel);
-
         ~Dish();
 
     public slots:
-        void loadDish(QString dish);
-        void httpreq();
+        void loadDish(QString dishName, QString dishDescription, QString dishIndegrients, QString dishPhotoLink);
+        void searchDish(QString dishName);
+        void testFuntion_1();
+        void testFuntion_2();
+        void testFuntion_3();
 
-    private:
+
+    private: //kraj, skladniki (dlugi string, new line), kroki z new lineami, nazwa, link do zdjecia
         QString dishName;
-        QString dishCousine;
         QString dishDescription;
         QString dishIndegrients;
-        int dishLevel;
-
+        QString dishPhotoLink;
 
 };
 
 #endif // DISH_H
+
+/*Dish(QString dishName, QString dishDescription, QString dishIndegrients, QString dishPhotoLink):
+            dishName(dishName), dishDescription(dishDescription), dishIndegrients(dishIndegrients), dishPhotoLink(dishPhotoLink){};*/
+
