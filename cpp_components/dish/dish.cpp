@@ -29,21 +29,17 @@ Dish::~Dish()
 }
 
 
-void Dish::loadDish(QString dishName, QString dishDescription, QString dishIndegrients, QString dishPhotoLink)
+void Dish::loadDish(QString dishName, QString dishDescription, QString dishIndegrients, QString dishPhotoLink, QString dishCountry)
 {
     this->dishName = dishName;
     this->dishDescription = dishDescription;
     this->dishIndegrients = dishIndegrients;
     this->dishPhotoLink = dishPhotoLink;
+    this->dishCountry = dishCountry;
     return;
 }
 
-void Dish::searchDish(QString dishName)
-{
-    qDebug() << dishName;
 
-    return;
-}
 
 
 void Dish::testFuntion_1()

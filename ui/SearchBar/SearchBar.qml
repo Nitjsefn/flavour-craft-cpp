@@ -64,6 +64,7 @@ Rectangle
         anchors.right: recipeInputRectangle.right
         anchors.rightMargin: 20
         anchors.verticalCenter: parent.verticalCenter
+        property bool searchButton: true
         Text
         {
             anchors.centerIn: parent
@@ -81,8 +82,7 @@ Rectangle
                 console.log("searchButton clicked")
                 //signal to backend
                 dish_handler.searchDish(recipeInput.text)
-                //signal to frontend
-
+                recipeListView.listViewVisible = true
             }
         }
     }

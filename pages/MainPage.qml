@@ -25,14 +25,10 @@ Rectangle
 
     Image     // background image
     {
-        id:backgroundImage
+        id: backgroundImage
         source: "qrc:/assets/ui/Assets/tlo2.png"
-        width: parent.width
-        height: parent.height
-        scale: 2.0
-
-        fillMode: Image.PreserveAspectFit
-        anchors.centerIn: parent
+        anchors.fill: parent
+        fillMode: Image.PreserveAspectCrop
     }
 
     Rectangle // shadow

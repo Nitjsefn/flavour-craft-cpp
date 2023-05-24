@@ -6,6 +6,16 @@
 
 
 
+struct dishInfo
+{
+    QString dishName;
+    QString dishDescription;
+    QString dishIndegrients;
+    QString dishPhotoLink;
+    QString dishCountry;
+};
+
+
 
 class Dish: public QObject
 {
@@ -15,18 +25,15 @@ class Dish: public QObject
         ~Dish();
 
     public slots:
-        void loadDish(QString dishName, QString dishDescription, QString dishIndegrients, QString dishPhotoLink);
-        void searchDish(QString dishName);
+        void loadDish(QString dishName, QString dishDescription, QString dishIndegrients, QString dishPhotoLink, QString dishCountry);
+
         void testFuntion_1();
         void testFuntion_2();
         void testFuntion_3();
 
 
     private: //kraj, skladniki (dlugi string, new line), kroki z new lineami, nazwa, link do zdjecia
-        QString dishName;
-        QString dishDescription;
-        QString dishIndegrients;
-        QString dishPhotoLink;
+        dishInfo dishInfo;
 
 };
 

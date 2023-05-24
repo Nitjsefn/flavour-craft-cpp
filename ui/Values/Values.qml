@@ -2,6 +2,7 @@ import QtQuick 2.15
 
 Item
 {
+
     property color buttonColor: "#F2E5D7"
     property color buttonTextColor: "#533B4D"
 

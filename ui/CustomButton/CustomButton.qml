@@ -29,3 +29,14 @@ Rectangle
         }
     }
 }
+
+/*
+        MouseArea
+        {
+            anchors.fill: parent
+            onClicked:
+            {
+                console.log("searchButton clicked")
+            }
+        }
+  */

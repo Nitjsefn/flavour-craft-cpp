@@ -5,7 +5,7 @@
 
 
 #include "cpp_components/dish/dish.h"
-
+#include "cpp_components/searchManager/searchmanager.h"
 
 
 int main(int argc, char *argv[])
@@ -13,8 +13,13 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);    
     QQmlApplicationEngine engine;
 
-    Dish *dish_handler = new Dish();
+    Dish *dish_handler = new Dish();  
     engine.rootContext()->setContextProperty("dish_handler",dish_handler);
+
+    searchManager search_handler;
+    engine.rootContext()->setContextProperty("search_handler",&search_handler);
+    //engine.rootContext()->setContextProperty("dishlistmodel", search_handler.getDishListModel());
+
 
     const QUrl url(u"qrc:/FlavorCraft/Main.qml"_qs);
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,
