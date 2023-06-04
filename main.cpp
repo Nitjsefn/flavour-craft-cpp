@@ -4,17 +4,14 @@
 #include <QIcon>
 
 
-#include "cpp_components/dish/dish.h"
 #include "cpp_components/searchManager/searchmanager.h"
+
 
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);    
     QQmlApplicationEngine engine;
-
-    Dish *dish_handler = new Dish();  
-    engine.rootContext()->setContextProperty("dish_handler",dish_handler);
 
     searchManager search_handler;
     engine.rootContext()->setContextProperty("search_handler",&search_handler);

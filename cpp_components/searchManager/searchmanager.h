@@ -2,29 +2,58 @@
 #ifndef SEARCHMANAGER_H
 #define SEARCHMANAGER_H
 
-
 #include <QObject>
+#include <QAbstractListModel>
+
+#include "cpp_components/dish/dish.h"
 
 
-#include "cpp_components/DishListModel/dishlistmodel.h"
+
+struct txtFile
+{
+    QString filePath;
+    QString tags;
+};
 
 
 
-class searchManager: public QObject
+class searchManager: public QAbstractListModel
 {
         Q_OBJECT
     public:
-        explicit searchManager(QObject *parent = nullptr);
+
+        searchManager(QObject *parent = nullptr);
         ~searchManager();
 
-        DishListModel* getDishListModel() const;
+        enum DishesRoles
+        {
+            dishNameRole = Qt::UserRole + 1,
+            dishDescriptionRole,
+            dishIndegrientsRole,
+            dishPhotoLinkRole,
+            dishCountryRole,
+            dishIndex
+        };
+        QHash<int, QByteArray> roleNames() const override;
+        int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+        QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
+        void addDish(const Dish &dish);
+        void updateTags();
 
     public slots:
-        void searchDish(QString dishName);
+        void searchLocalDish(QString dishName);
+        void searchOnlineDish(QString dishName);
+        void loadDish(int index);
+        void clearDishes();
+        void testFuntion_1();
+        void testFuntion_2();
+        void testFuntion_3();
 
     private:
-         DishListModel m_dishListModel;
+        QList<Dish> dishes;
+        QList<txtFile> txtFiles;
+        Dish chosenDish;
 };
 
 #endif // SEARCHMANAGER_H

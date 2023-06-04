@@ -91,14 +91,10 @@ Rectangle
                 anchors.fill: parent
                 onClicked:
                 {
-                    console.log("searchButton clicked")
-                    search_handler.searchDish(recipeInput.text)
+                    //console.log("searchButton clicked")
+                    search_handler.searchLocalDish(recipeInput.text)
 
                     //zsearchowane obiekty niech referencjuje do appendowania nie?
-
-                    /*modelData.append({"dishName": "Schabowy", "dishCountry": "Polska"})
-                    modelData.append({"dishName": "Kosiniak", "dishCountry": "Kamysz"})
-                    modelData.append({"dishName": "Twoja", "dishCountry": "Stara"})*/
 
                     recipeListView.listViewVisible = true
                 }
@@ -107,45 +103,20 @@ Rectangle
 
     }
 
-    /*ListView
-    {
-        //id: recipeInputRectangle
-        width: parent.width/6*4
-        height: parent.height/6*3
-        y: parent.height/6*2
-        anchors.horizontalCenter: parent.horizontalCenter
-        ListElement
-        {
-            name: "Twoja stara"
-        }
-
-        //color: "#724E91"
-        //radius: 9
-    }*/
-
-    ListModel
-    {
-        id: modelData
-        /*ListElement
-        {
-            show: false
-            dishName: "Schabowy"
-            dishCountry: "Polska"
-        }*/
-    }
-
     ListView
     {
         id: recipeListView
+
         width: parent.width/6*4
         height: parent.height/6*3
         y: parent.height/6*2
         anchors.horizontalCenter: parent.horizontalCenter
+
 
         property bool listViewVisible: false
         visible: listViewVisible ? true : false
 
-        model: search_handler.getDishListModel()
+        model: search_handler
         spacing: 20
         delegate: Rectangle //jak wyglada jeden element
         {
@@ -156,11 +127,14 @@ Rectangle
             radius: 15
             border.width: 2
             border.color: "#CCCCCC"
-            Row
+            property int index: ListView.view.currentIndex
+            Rectangle
             {
+                color: "transparent"
                 anchors.fill: parent
                 anchors.leftMargin: 20
-                spacing: 20
+                anchors.rightMargin: 20 + openButton.width
+
                 Text
                 {
                     text: model.dishName
@@ -169,6 +143,8 @@ Rectangle
                     font.bold: true
                     verticalAlignment: Text.AlignVCenter
                     font.pointSize: 16
+                    height: parent.height
+                    anchors.left: parent.left
                 }
                 Text
                 {
@@ -178,11 +154,14 @@ Rectangle
                     font.bold: true
                     verticalAlignment: Text.AlignVCenter
                     font.pointSize: 16
+                    height: parent.height
+                    anchors.right: parent.right
                 }
             }
 
             CustomButton
             {
+                id: openButton
                 anchors.right: parent.right
                 Text
                 {
@@ -200,10 +179,12 @@ Rectangle
                     onClicked:
                     {
                         recipeListView.listViewVisible = false
-                        modelData.clear()
+                        search_handler.loadDish(model.index)
                     }
                 }
             }
         }
     }
+
+
 }

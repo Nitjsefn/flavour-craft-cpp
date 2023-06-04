@@ -1,27 +1,51 @@
+
 #include "dish.h"
+
 #include <QDebug>
+#include <QFile>
 
 
-
-using namespace std;
-
+//using namespace std;
 
 
-Dish::Dish(QObject *parent)
-    :QObject{parent}
+Dish::Dish()
 {
-    this->dishName = "dishName";
-    this->dishDescription = "dishDescription";
-    this->dishIndegrients = "dishIndegrients";
-    this->dishPhotoLink = "dishPhotoLink";
+    this->dishInfo.dishName = "dishName";
+    this->dishInfo.dishDescription = "dishDescription";
+    this->dishInfo.dishIndegrients = "dishIndegrients";
+    this->dishInfo.dishPhotoLink = "dishPhotoLink";
+    this->dishInfo.dishCountry = "dishCountry";
 }
 
-
-/*Dish::Dish()
+Dish::Dish(QString path)
 {
 
-}*/
+    QFile file(path);
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        QTextStream textStream(&file);
 
+        // Odczytaj dane z pliku i przypisz je do pól obiektu dishInfo
+        textStream.readLine(); //pomiń tagi
+        this->dishInfo.dishName = textStream.readLine();
+        this->dishInfo.dishDescription = textStream.readLine();
+        this->dishInfo.dishIndegrients = textStream.readLine();
+        this->dishInfo.dishPhotoLink = textStream.readLine();
+        this->dishInfo.dishCountry = textStream.readLine();
+
+        qDebug()<<  "dishName: "<<this->dishInfo.dishName;
+        qDebug()<<  "dishDescription: "<<this->dishInfo.dishDescription;
+        qDebug()<<  "dishIndegrients: "<<this->dishInfo.dishIndegrients;
+        qDebug()<<  "dishPhotoLink: "<<this->dishInfo.dishPhotoLink;
+        qDebug()<<  "dishCountry: "<<this->dishInfo.dishCountry;
+
+        file.close();
+    }
+    else
+    {
+        qDebug() << "Failed to open file:" << path;
+    }
+}
 
 Dish::~Dish()
 {
@@ -29,35 +53,32 @@ Dish::~Dish()
 }
 
 
-void Dish::loadDish(QString dishName, QString dishDescription, QString dishIndegrients, QString dishPhotoLink, QString dishCountry)
+QString Dish::getDishName() const
 {
-    this->dishName = dishName;
-    this->dishDescription = dishDescription;
-    this->dishIndegrients = dishIndegrients;
-    this->dishPhotoLink = dishPhotoLink;
-    this->dishCountry = dishCountry;
-    return;
+    return dishInfo.dishName;
 }
 
-
-
-
-void Dish::testFuntion_1()
+QString Dish::getDishDescription() const
 {
-    qDebug()<< "test";
-    return;
+    return dishInfo.dishDescription;
 }
 
-
-void Dish::testFuntion_2()
+QString Dish::getDishIndegrients() const
 {
-    qDebug()<< "test";
-    return;
+    return dishInfo.dishIndegrients;
 }
 
-
-void Dish::testFuntion_3()
+QString Dish::getDishPhotoLink() const
 {
-    qDebug()<< "test";
-    return;
+    return dishInfo.dishPhotoLink;
+}
+
+QString Dish::getDishCountry() const
+{
+    return dishInfo.dishCountry;
+}
+
+int Dish::getDishIndex() const
+{
+    return index;
 }

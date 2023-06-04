@@ -21,8 +21,12 @@
         <file>ui/CustomButton/CustomButton.qml</file>
         <file>ui/Test/Test.qml</file>
         <file>ui/Values/Values.qml</file>
-        <file>pages/SearchPage.qml</file>
+        <file>pages/SearchLocalPage.qml</file>
         <file>ui/CustomTextHolder/CustomTextHolder.qml</file>
         <file>ui/SearchBar/SearchBar.qml</file>
+        <file>pages/SearchOnlinePage.qml</file>
+        <file>localdata/dish1.txt</file>
+        <file>localdata/dish2.txt</file>
+        <file>localdata/dish3.txt</file>
     </qresource>
 </RCC>

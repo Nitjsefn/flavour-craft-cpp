@@ -34,7 +34,7 @@ Rectangle
             }
             onClicked:
             {
-                dish_handler.testFuntion_1();
+                search_handler.testFuntion_1();
             }
         }
 
@@ -58,7 +58,7 @@ Rectangle
             }
             onClicked:
             {
-                dish_handler.testFuntion_2();
+                search_handler.testFuntion_2();
             }
         }
 
@@ -82,7 +82,7 @@ Rectangle
             }
             onClicked:
             {
-                dish_handler.testFuntion_3();
+                search_handler.testFuntion_3();
             }
         }
     }

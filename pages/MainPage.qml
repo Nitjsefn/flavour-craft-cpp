@@ -157,7 +157,7 @@ Rectangle
                             {
                                 localDataBaseButtonBackground.color = values.buttonColor
                             }
-                        console.log("infoButton hovered")
+                        //console.log("infoButton hovered")
                     }
                 }
             }
@@ -166,9 +166,9 @@ Rectangle
                 anchors.fill: parent
                 onClicked:
                 {
-                    mainLoader.source = "qrc:/pages/SearchPage.qml"
+                    mainLoader.source = "qrc:/pages/SearchLocalPage.qml"
                     mainWindow.navigationButtons = 1
-                    console.log("infoButton clicked")
+                    //console.log("infoButton clicked")
                 }
             }
         }
@@ -233,7 +233,7 @@ Rectangle
                             {
                                 internetDataBaseButtonBackground.color = values.buttonColor
                             }
-                        console.log("internetButton hovered")
+                        //console.log("internetButton hovered")
                     }
                 }
             }
@@ -242,7 +242,7 @@ Rectangle
                 anchors.fill: parent
                 onClicked:
                 {
-                    console.log("internetButton clicked")
+                    //console.log("internetButton clicked")
                 }
             }
         }

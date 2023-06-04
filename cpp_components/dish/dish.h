@@ -1,7 +1,7 @@
+
 #ifndef DISH_H
 #define DISH_H
 
-#include <QObject>
 #include <QString>
 
 
@@ -17,28 +17,28 @@ struct dishInfo
 
 
 
-class Dish: public QObject
+class Dish
 {
-    Q_OBJECT
     public:
-        explicit Dish(QObject *parent = nullptr);
+
+        Dish();
+        Dish(QString path);
+        Dish(const QString &dishName, const QString &dishDescription, const QString &dishIndegrients, const QString &dishPhotoLink, const QString &dishCountry, int index)
+            :dishInfo{dishName, dishDescription, dishIndegrients, dishPhotoLink, dishCountry}, index(index){};
+        Dish(const QString &dishName, const QString &dishDescription, const QString &dishIndegrients, const QString &dishPhotoLink, const QString &dishCountry)
+            :dishInfo{dishName, dishDescription, dishIndegrients, dishPhotoLink, dishCountry}{};
         ~Dish();
 
-    public slots:
-        void loadDish(QString dishName, QString dishDescription, QString dishIndegrients, QString dishPhotoLink, QString dishCountry);
+        QString getDishName() const;
+        QString getDishDescription() const;
+        QString getDishIndegrients() const;
+        QString getDishPhotoLink() const;
+        QString getDishCountry() const;
+        int getDishIndex() const;
 
-        void testFuntion_1();
-        void testFuntion_2();
-        void testFuntion_3();
-
-
-    private: //kraj, skladniki (dlugi string, new line), kroki z new lineami, nazwa, link do zdjecia
+    private:
         dishInfo dishInfo;
-
+        int index;
 };
 
 #endif // DISH_H
-
-/*Dish(QString dishName, QString dishDescription, QString dishIndegrients, QString dishPhotoLink):
-            dishName(dishName), dishDescription(dishDescription), dishIndegrients(dishIndegrients), dishPhotoLink(dishPhotoLink){};*/
-

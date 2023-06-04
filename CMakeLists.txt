@@ -13,14 +13,15 @@ qt_standard_project_setup()
 
 qt_add_executable(appFlavorCraft
     main.cpp
-    cpp_components/dish/dish.cpp
+    #cpp_components/dish/dishxd.cpp
+    #cpp_components/dish/dishxd.h
+
     cpp_components/dish/dish.h
+    cpp_components/dish/dish.cpp
 
     cpp_components/searchManager/searchmanager.h
     cpp_components/searchManager/searchmanager.cpp
 
-    cpp_components/DishListModel/dishlistmodel.h
-    cpp_components/DishListModel/dishlistmodel.cpp
     ${QT_RESOURCES}
 )
 
