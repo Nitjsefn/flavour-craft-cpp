@@ -6,18 +6,30 @@ import QtQuick.Controls 2.15
 import "qrc:/ui/UpperPhoto"
 import "qrc:/ui/AboutDish"
 import "qrc:/ui/DishIngredients"
+import "qrc:/ui/CustomButton"
+import "qrc:/ui/Values"
 import "qrc:/pages"
 
 
 Window
 {
     id: mainWindow
-    width: 1280
-    height: 860
-    minimumWidth: 860
-    minimumHeight: 640
+    width: 1260
+    height: 840
+
+
+    minimumWidth: 1260
+    minimumHeight: 840
+
     visible: true
     title: qsTr("FlavourCraft")
+
+    property int navigationButtons: 0
+
+    Values
+    {
+        id: values
+    }
 
     Loader
     {
@@ -26,35 +38,82 @@ Window
         source: "qrc:/pages/MainPage.qml"
     }
 
-    Button
+    CustomButton
     {
-        z:1
-        x: parent.width - 100
-        y: parent.height - 100
-        width: 50
-        height: 50
-        property int sourceId: 0
-        background: Rectangle
+        id: backButton
+        x: parent.width - width - menuButton.width - 24 - 24
+        y: parent.height - height - 24
+        visible: navigationButtons ? true : false
+        Text
         {
-            color:"red"
-            radius: 6
-            Text
-            {
-
-                text: "1111111"
-            }
+            color: values.buttonTextColor
+            text: "Back"
+            font.bold: true
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            anchors.centerIn: parent
+            font.pointSize: 16
         }
-        onClicked:
+    }
+
+    CustomButton
+    {
+        id: menuButton
+        x: parent.width - width - 24
+        y: parent.height - height - 24
+        visible: navigationButtons ? true : false
+        Text
         {
-            if(sourceId == 0)
-            {
-                mainLoader.source = "qrc:/pages/TestPage.qml"
-                sourceId = 1
-            }
-            else
+            color: values.buttonTextColor
+            text: "Menu"
+            font.bold: true
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            anchors.centerIn: parent
+            font.pointSize: 16
+        }
+        MouseArea
+        {
+            anchors.fill: parent
+            onClicked:
             {
                 mainLoader.source = "qrc:/pages/MainPage.qml"
-                sourceId = 0
+                mainWindow.navigationButtons = 0
+            }
+        }
+    }
+
+    CustomButton
+    {
+        id: testButton
+        x: parent.width - width - menuButton.width - backButton.width - 24 - 24 - 24
+        y: parent.height - height - 24
+        property int sourceId: 0
+        Text
+        {
+            color: values.buttonTextColor
+            text: "Test"
+            font.bold: true
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            anchors.centerIn: parent
+            font.pointSize: 16
+        }
+        MouseArea
+        {
+            anchors.fill: parent
+            onClicked:
+            {
+                if(testButton.sourceId == 0)
+                {
+                    mainLoader.source = "qrc:/pages/TestPage.qml"
+                    testButton.sourceId = 1
+                }
+                else
+                {
+                    mainLoader.source = "qrc:/pages/MainPage.qml"
+                    testButton.sourceId = 0
+                }
             }
         }
     }

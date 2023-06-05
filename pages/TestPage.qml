@@ -9,31 +9,83 @@ Rectangle
     color: "#C97D60"
 
     //Testing purpouses
-    Button
+    Row
     {
         anchors.centerIn: parent
-        x: parent.width/2
-        y: parent.height/2
-        width: 100
-        height: 75
-        background: Rectangle
+        spacing: 20
+
+        Button
         {
-            color: "#F2E5D7"//"#724E91"
-            radius: 6
-            Text
+            width: 100
+            height: 75
+            background: Rectangle
             {
-                width: parent.width
-                height: parent.height
-                color: "#533B4D"
-                font.family: "Consolas"
-                font.pointSize: 12
-                wrapMode: Text.Wrap
-                text: "http req test button"
+                color: "#F2E5D7"//"#724E91"
+                radius: 6
+                Text
+                {
+                    anchors.centerIn: parent
+                    color: "#533B4D"
+                    font.family: "Consolas"
+                    font.pointSize: 12
+                    wrapMode: Text.Wrap
+                    text: "testbutton1"
+                }
+            }
+            onClicked:
+            {
+                search_handler.testFuntion_1();
             }
         }
-        onClicked:
+
+        Button
         {
-            dish_handler.httpreq();
+            width: 100
+            height: 75
+            background: Rectangle
+            {
+                color: "#F2E5D7"//"#724E91"
+                radius: 6
+                Text
+                {
+                    anchors.centerIn: parent
+                    color: "#533B4D"
+                    font.family: "Consolas"
+                    font.pointSize: 12
+                    wrapMode: Text.Wrap
+                    text: "testbutton2"
+                }
+            }
+            onClicked:
+            {
+                search_handler.testFuntion_2();
+            }
+        }
+
+        Button
+        {
+            width: 100
+            height: 75
+            background: Rectangle
+            {
+                color: "#F2E5D7"//"#724E91"
+                radius: 6
+                Text
+                {
+                    anchors.centerIn: parent
+                    color: "#533B4D"
+                    font.family: "Consolas"
+                    font.pointSize: 12
+                    wrapMode: Text.Wrap
+                    text: "testbutton3"
+                }
+            }
+            onClicked:
+            {
+                search_handler.testFuntion_3();
+            }
         }
     }
+
+
 }
