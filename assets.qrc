@@ -9,6 +9,8 @@
         <file>ui/Assets/tlo2.png</file>
         <file>ui/Assets/jakub.png</file>
         <file>ui/Assets/karol.png</file>
+        <file>ui/Assets/iconmonstr-photo-camera-5.svg</file>
+        <file>ui/Assets/iconmonstr-folder-31.svg</file>
     </qresource>
     <qresource prefix="/">
         <file>ui/UpperPhoto/UpperPhoto.qml</file>

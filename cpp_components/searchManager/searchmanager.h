@@ -28,7 +28,7 @@ class searchManager: public QAbstractListModel
         enum DishesRoles
         {
             dishNameRole = Qt::UserRole + 1,
-            dishDescriptionRole,
+            dishRecipeSteps,
             dishIndegrientsRole,
             dishPhotoLinkRole,
             dishCountryRole,

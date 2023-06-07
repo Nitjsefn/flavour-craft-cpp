@@ -23,7 +23,7 @@ Rectangle
         {
             id: indegrientsTitle
             color: "#533B4D"
-            text: qsTr("Indegrients:")
+            text: qsTr("Ingredients:")
             font.family: "Consolas"
             font.italic: true
             font.pointSize: 20
@@ -40,5 +40,23 @@ Rectangle
         width: parent.width - 100
         height: parent.height - 100
         radius: 6
+        Text
+        {
+            id: indegrientsItems
+            color: "#533B4D"
+            text: qsTr("pork chop: 2 boneless
+salt black pepper: to taste
+purpose flour: 1 tablespoon
+egg: 1
+bread crumb: 5 tablespoons
+vegetable oil: 2 tablespoons")
+            font.family: "Consolas"
+            font.italic: true
+            font.pointSize: 12
+            anchors.fill: parent
+            anchors.margins: 5
+            wrapMode: Text.WordWrap
+        }
+
     }
 }
