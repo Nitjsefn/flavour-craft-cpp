@@ -22,6 +22,9 @@ qt_add_executable(appFlavorCraft
     cpp_components/searchManager/searchmanager.h
     cpp_components/searchManager/searchmanager.cpp
 
+    cpp_components/systemManager/systemManager.h
+    cpp_components/systemManager/systemManager.cpp
+
     ${QT_RESOURCES}
 )
 
