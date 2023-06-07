@@ -15,9 +15,8 @@ Rectangle
     Image
     {
         id: dishPhoto
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter
-        fillMode: Image.PreserveAspectFit
-        source: "qrc:/assets/ui/Assets/sushi.jpg"
+        anchors.fill: parent
+        fillMode: Image.PreserveAspectCrop
+        source: "https://images.media-allrecipes.com/userphotos/560x315/4537037.jpg"
     }
 }

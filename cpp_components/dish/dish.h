@@ -9,7 +9,7 @@
 struct dishInfo
 {
     QString dishName;
-    QString dishDescription;
+    QString dishRecipeSteps;
     QString dishIndegrients;
     QString dishPhotoLink;
     QString dishCountry;
@@ -23,21 +23,21 @@ class Dish
 
         Dish();
         Dish(QString path);
-        Dish(const QString &dishName, const QString &dishDescription, const QString &dishIndegrients, const QString &dishPhotoLink, const QString &dishCountry, int index)
-            :dishInfo{dishName, dishDescription, dishIndegrients, dishPhotoLink, dishCountry}, index(index){};
-        Dish(const QString &dishName, const QString &dishDescription, const QString &dishIndegrients, const QString &dishPhotoLink, const QString &dishCountry)
-            :dishInfo{dishName, dishDescription, dishIndegrients, dishPhotoLink, dishCountry}{};
+        Dish(const QString &dishName, const QString &dishRecipeSteps, const QString &dishIndegrients, const QString &dishPhotoLink, const QString &dishCountry, int index)
+            :dishData{dishName, dishRecipeSteps, dishIndegrients, dishPhotoLink, dishCountry}, index(index){};
+        Dish(const QString &dishName, const QString &dishRecipeSteps, const QString &dishIndegrients, const QString &dishPhotoLink, const QString &dishCountry)
+            :dishData{dishName, dishRecipeSteps, dishIndegrients, dishPhotoLink, dishCountry}{};
         ~Dish();
 
         QString getDishName() const;
-        QString getDishDescription() const;
+        QString getDishRecipeSteps() const;
         QString getDishIndegrients() const;
         QString getDishPhotoLink() const;
         QString getDishCountry() const;
         int getDishIndex() const;
 
     private:
-        dishInfo dishInfo;
+        dishInfo dishData;
         int index;
 };
 

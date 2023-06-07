@@ -26,7 +26,7 @@ QHash<int, QByteArray> searchManager::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[dishNameRole] = "dishName";
-    roles[dishDescriptionRole] = "dishDescription";
+    roles[dishRecipeSteps] = "dishRecipeSteps";
     roles[dishIndegrientsRole] = "dishIndegrients";
     roles[dishPhotoLinkRole] = "dishPhotoLink";
     roles[dishCountryRole] = "dishCountry";
@@ -62,8 +62,8 @@ QVariant searchManager::data(const QModelIndex &index, int role) const
         case dishNameRole:
             return dish.getDishName();
 
-        case dishDescriptionRole:
-            return dish.getDishDescription();
+        case dishRecipeSteps:
+            return dish.getDishRecipeSteps();
 
         case dishIndegrientsRole:
             return dish.getDishIndegrients();

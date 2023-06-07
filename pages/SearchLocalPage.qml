@@ -40,7 +40,7 @@ Rectangle
                 leftMargin: 20
                 verticalCenter: parent.verticalCenter
             }
-            source: "qrc:/assets/ui/Assets/iconmonstr-folder-30.svg"
+            source: "qrc:/assets/ui/Assets/iconmonstr-folder-31.svg"
             sourceSize: Qt.size(48, 48)
             fillMode: Image.PreserveAspectFit
         }
@@ -91,11 +91,7 @@ Rectangle
                 anchors.fill: parent
                 onClicked:
                 {
-                    //console.log("searchButton clicked")
                     search_handler.searchLocalDish(recipeInput.text)
-
-                    //zsearchowane obiekty niech referencjuje do appendowania nie?
-
                     recipeListView.listViewVisible = true
                 }
             }
@@ -137,6 +133,7 @@ Rectangle
 
                 Text
                 {
+                    id: dishName
                     text: model.dishName
                     color: values.buttonColor
                     font.family: "Consolas"
@@ -146,6 +143,31 @@ Rectangle
                     height: parent.height
                     anchors.left: parent.left
                 }
+
+                Image
+                {
+                    id: showDishImage
+                    //anchors.left: dishName.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    x: dishName.x + dishName.width + 10
+                    source: "qrc:/assets/ui/Assets/iconmonstr-photo-camera-5.svg"
+                    height: 24; width: 24;
+                    MouseArea
+                    {
+                        anchors.fill: parent
+                        onClicked:
+                        {
+                            dishImage.pathImage = model.dishPhotoLink
+                            dishImageTitleText.text = model.dishName
+                            dishImageItem.visible = true
+                            testButton.visible = false
+                            backButton.visible = false
+                            menuButton.visible = false
+                        }
+                    }
+
+                }
+
                 Text
                 {
                     text: model.dishCountry
@@ -153,7 +175,7 @@ Rectangle
                     font.family: "Consolas"
                     font.bold: true
                     verticalAlignment: Text.AlignVCenter
-                    font.pointSize: 16
+                    font.pointSize: 12
                     height: parent.height
                     anchors.right: parent.right
                 }
@@ -186,5 +208,54 @@ Rectangle
         }
     }
 
+    Rectangle
+    {
+        id: dishImageItem
+        visible: false
+        anchors.fill: parent
+        color: "#80000000"
+        Image
+        {
+            id: dishImage
+            source: "file"
+            property alias pathImage: dishImage.source
+            width: parent.width/3*2
+            height: parent.height/3*2
+            anchors.centerIn: parent
+            MouseArea
+            {
+                anchors.fill: parent
+                onClicked:
+                {
+                    dishImageItem.visible = false
+                    testButton.visible = true
+                    backButton.visible = true
+                    menuButton.visible = true
+                }
+            }
+        }
 
+        Text
+        {
+            id: dishImageTitleText
+            text: qsTr()
+            font.family: "Consolas"
+            font.bold: true
+            font.pointSize: 12
+            color: values.buttonColor
+            y: dishImage.y + dishImage.height + 10
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+        Text
+        {
+            id: dishImageDescriptionText
+            text: qsTr("kliknij obrazek aby zamknąć")
+            font.family: "Consolas"
+            font.bold: true
+            font.pointSize: 8
+            color: values.buttonColor
+            y: dishImageTitleText.y + dishImageTitleText.height + 2
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+    }
 }

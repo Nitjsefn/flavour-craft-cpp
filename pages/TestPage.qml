@@ -83,6 +83,7 @@ Rectangle
             onClicked:
             {
                 search_handler.testFuntion_3();
+                mainLoader.source = "qrc:/pages/DishPage.qml"
             }
         }
     }

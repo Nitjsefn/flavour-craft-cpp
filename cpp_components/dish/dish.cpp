@@ -10,11 +10,11 @@
 
 Dish::Dish()
 {
-    this->dishInfo.dishName = "dishName";
-    this->dishInfo.dishDescription = "dishDescription";
-    this->dishInfo.dishIndegrients = "dishIndegrients";
-    this->dishInfo.dishPhotoLink = "dishPhotoLink";
-    this->dishInfo.dishCountry = "dishCountry";
+    this->dishData.dishName = "dishName";
+    this->dishData.dishRecipeSteps = "dishDescription";
+    this->dishData.dishIndegrients = "dishIndegrients";
+    this->dishData.dishPhotoLink = "dishPhotoLink";
+    this->dishData.dishCountry = "dishCountry";
 }
 
 Dish::Dish(QString path)
@@ -27,17 +27,17 @@ Dish::Dish(QString path)
 
         // Odczytaj dane z pliku i przypisz je do pól obiektu dishInfo
         textStream.readLine(); //pomiń tagi
-        this->dishInfo.dishName = textStream.readLine();
-        this->dishInfo.dishDescription = textStream.readLine();
-        this->dishInfo.dishIndegrients = textStream.readLine();
-        this->dishInfo.dishPhotoLink = textStream.readLine();
-        this->dishInfo.dishCountry = textStream.readLine();
+        this->dishData.dishName = textStream.readLine();
+        this->dishData.dishRecipeSteps = textStream.readLine();
+        this->dishData.dishIndegrients = textStream.readLine();
+        this->dishData.dishPhotoLink = textStream.readLine();
+        this->dishData.dishCountry = textStream.readLine();
 
-        qDebug()<<  "dishName: "<<this->dishInfo.dishName;
-        qDebug()<<  "dishDescription: "<<this->dishInfo.dishDescription;
-        qDebug()<<  "dishIndegrients: "<<this->dishInfo.dishIndegrients;
-        qDebug()<<  "dishPhotoLink: "<<this->dishInfo.dishPhotoLink;
-        qDebug()<<  "dishCountry: "<<this->dishInfo.dishCountry;
+        qDebug()<<  "dishName: "<<this->dishData.dishName;
+        qDebug()<<  "dishDescription: "<<this->dishData.dishRecipeSteps;
+        qDebug()<<  "dishIndegrients: "<<this->dishData.dishIndegrients;
+        qDebug()<<  "dishPhotoLink: "<<this->dishData.dishPhotoLink;
+        qDebug()<<  "dishCountry: "<<this->dishData.dishCountry;
 
         file.close();
     }
@@ -55,27 +55,27 @@ Dish::~Dish()
 
 QString Dish::getDishName() const
 {
-    return dishInfo.dishName;
+    return dishData.dishName;
 }
 
-QString Dish::getDishDescription() const
+QString Dish::getDishRecipeSteps() const
 {
-    return dishInfo.dishDescription;
+    return dishData.dishRecipeSteps;
 }
 
 QString Dish::getDishIndegrients() const
 {
-    return dishInfo.dishIndegrients;
+    return dishData.dishIndegrients;
 }
 
 QString Dish::getDishPhotoLink() const
 {
-    return dishInfo.dishPhotoLink;
+    return dishData.dishPhotoLink;
 }
 
 QString Dish::getDishCountry() const
 {
-    return dishInfo.dishCountry;
+    return dishData.dishCountry;
 }
 
 int Dish::getDishIndex() const
