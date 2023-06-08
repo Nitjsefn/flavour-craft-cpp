@@ -5,12 +5,11 @@ recipeRestHandler::recipeRestHandler()
 	nm = new QNetworkAccessManager();
 	QObject::connect(nm, &QNetworkAccessManager::finished\
 			, this, &recipeRestHandler::onFinish);
-i = 0;
 }
 
 recipeRestHandler::recipeRestHandler(QUrl url)
 	: url(url)
-{i=0;
+{
 	nm = new QNetworkAccessManager();
 	QObject::connect(nm, &QNetworkAccessManager::finished\
 			, this, &recipeRestHandler::onFinish);
@@ -45,16 +44,13 @@ void recipeRestHandler::sendGetReq()
 }
 
 void recipeRestHandler::onFinish(QNetworkReply* rep)
-{QString fn = (i == 0) ? "test.web1.html" : "test.web2.html";
-	QByteArray header;
-	rep->rawHeader(header);;
-	QFile file(fn);
-	file.open(QIODevice::ReadWrite);
-	file.write(rep->readAll());
-	file.close();
+{
+	//QFile file("test.web.html");
+	//file.open(QIODevice::ReadWrite);
+	//file.write(rep->readAll());
+	//file.close();
+	qDebug() << "Finished network request\n";
 	if(nullptr == rep) return;
 	rep->deleteLater();
-	i++;
-	qDebug() << "Finished\n";
 }
 
