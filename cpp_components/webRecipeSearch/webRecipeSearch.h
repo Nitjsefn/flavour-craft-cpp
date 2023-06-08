@@ -1,5 +1,6 @@
 #pragma once
 
+#include "cpp_components/recipeRestHandler/recipeRestHandler.h"
 #include <QNetworkAccessManager>
 #include <QUrl>
 #include <QString>
@@ -10,23 +11,26 @@
 //#include <QFile>
 #include <vector>
 
-class webRecipeSearch : public QObject
+struct foundRecipe
+{
+	QString id;
+	QString name;
+	QString cuisine;
+};
+
+class webRecipeSearch : public recipeRestHandler
 {
 	Q_OBJECT
-	private:
+	protected:
 		QString recipeQuery;
-		QUrl dbUrl;
-		std::vector<QString> foundRecipes;
-		QNetworkAccessManager* nm;
+		std::vector<foundRecipe> foundRecipes;
 	public:
 		webRecipeSearch();
 		webRecipeSearch(QUrl url);
-		~webRecipeSearch();
-		void setDbUrl(QUrl url);
 		void setRecipeQuery(QString query);
 		void getRecipes();
+		void getRecipes(QString query);
 	public slots:
 		void onFinish(QNetworkReply* rep);
 };
-
 
