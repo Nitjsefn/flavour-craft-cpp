@@ -13,8 +13,7 @@
 class recipeRestHandler : public QObject
 {
 	Q_OBJECT
-	private:
-		int i;
+	protected:
 		QUrl url;
 		QNetworkAccessManager* nm;
 	public:
@@ -27,5 +26,4 @@ class recipeRestHandler : public QObject
 	public slots:
 		virtual void onFinish(QNetworkReply* rep);
 };
-
 
