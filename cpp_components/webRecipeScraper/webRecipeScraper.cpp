@@ -1,16 +1,15 @@
 #include "cpp_components/webRecipeScraper/webRecipeScraper.h"
+#include <sstream>
 
 int webRecipeScraper::scrapRecipesList(QNetworkReply* webPagePtr, std::vector<foundRecipe>* foundRecipes)
 {
-	/*auto a = webPagePtr->readAll();
-	for(int i = 0; i < 20; i++)
-		std::cout <<(char) a[i];
-	return 0;
-	*/
-	std::string* webPageS = new std::string;
-	stringify(webPagePtr, *webPageS);
-	std::istringstream webPage(*webPageS);
-	delete webPageS;
+//	std::string* webPageS = new std::string;
+//	stringify(webPagePtr, *webPageS);
+//	std::istringstream webPage(*webPageS);
+//	delete webPageS;
+//	for(char c : webPagePtr->readAll())
+//		webPage << c;
+	std::stringstream webPage((char*)&(webPagePtr->readAll()[0]));
 	std::string line;
     int lineL;
 // <tbody>
