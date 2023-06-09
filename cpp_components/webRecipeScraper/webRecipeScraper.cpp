@@ -1,8 +1,12 @@
 #include "cpp_components/webRecipeScraper/webRecipeScraper.h"
-#include <sstream>
 
 int webRecipeScraper::scrapRecipesList(QNetworkReply* webPagePtr, std::vector<foundRecipe>* foundRecipes)
 {
+	/*auto a = webPagePtr->readAll();
+	for(int i = 0; i < 20; i++)
+		std::cout <<(char) a[i];
+	return 0;
+	*/
 	std::string* webPageS = new std::string;
 	stringify(webPagePtr, *webPageS);
 	std::istringstream webPage(*webPageS);
@@ -31,7 +35,7 @@ int webRecipeScraper::scrapRecipesList(QNetworkReply* webPagePtr, std::vector<fo
         {
             int i = 0;
             while(line[i] == ' ' || line[i] == '\t') i++;
-            recipe.name = line.sliced(i);
+            recipe.name = QString::fromStdString(line.substr(i));
             foundRecipes->push_back(recipe);
             found = false;
             continue;
@@ -41,7 +45,7 @@ int webRecipeScraper::scrapRecipesList(QNetworkReply* webPagePtr, std::vector<fo
 			std::vector<int> indxs = boyerMooreStringSearch(line, "search_recipeInfo/");
             int i = indxs.at(0) + 18;
             while(line[i] != '\'') i++;
-            recipe.id = line.sliced(indxs.at(0)+18, i - 18 - indxs.at(0));
+            recipe.id = QString::fromStdString(line.substr(indxs.at(0)+18, i - 18 - indxs.at(0)));
             found = true;
             continue;
         }
@@ -90,9 +94,9 @@ std::vector<int> webRecipeScraper::boyerMooreStringSearch(std::string text, std:
 
 void stringify(QIODevice* in, std::string &out)
 {
-	stringBuilder sb(out);
+	stringBuilder sb;
 	char c;
 	while(in->getChar(&c))
 		sb.add(c);
-	sb.build();
+	out = sb.build();
 }
