@@ -9,7 +9,7 @@
 #include <QObject>
 #include <QNetworkRequest>
 #include <QUrlQuery>
-//#include <QFile>
+#include <fstream>
 #include <vector>
 
 class webRecipeSearch : public recipeRestHandler
