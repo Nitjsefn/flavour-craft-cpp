@@ -92,7 +92,7 @@ std::vector<int> webRecipeScraper::boyerMooreStringSearch(std::string text, std:
     return indxs;
 }
 
-void stringify(QIODevice* in, std::string &out)
+void webRecipeScraper::stringify(QIODevice* in, std::string &out)
 {
 	stringBuilder sb;
 	char c;
