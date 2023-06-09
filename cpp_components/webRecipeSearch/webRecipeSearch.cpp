@@ -10,7 +10,7 @@ void webRecipeSearch::setRecipeQuery(QString query)
 	this->recipeQuery = query;
 }
 
-void webRecipeSearch::getRecipes()
+void webRecipeSearch::searchForRecipes()
 {
 
 	foundRecipes.clear();
@@ -22,12 +22,17 @@ void webRecipeSearch::getRecipes()
 }
 
 
-void webRecipeSearch::getRecipes(QString query)
+void webRecipeSearch::searchForRecipes(QString query)
 {
 	this->setRecipeQuery(query);
 	this->getRecipes();
 }
 
+std::vector<webRecipeScraper::foundRecipe> webRecipeSearch::getRecipes()
+{
+	while(0 == foundRecipes.size());
+	return foundRecipes;
+}
 void webRecipeSearch::onFinish(QNetworkReply* rep)
 {
 	if(nullptr == rep) return;
