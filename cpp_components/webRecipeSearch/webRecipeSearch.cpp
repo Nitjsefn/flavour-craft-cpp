@@ -30,13 +30,14 @@ void webRecipeSearch::searchForRecipes(QString query)
 
 std::vector<webRecipeScraper::foundRecipe> webRecipeSearch::getRecipes()
 {
-	while(0 == foundRecipes.size());
 	return foundRecipes;
 }
+
 void webRecipeSearch::onFinish(QNetworkReply* rep)
 {
 	if(nullptr == rep) return;
 	webRecipeScraper::scrapRecipesList(rep, &foundRecipes);
 	rep->deleteLater();
+	emit finished(foundRecipes);
 }
 

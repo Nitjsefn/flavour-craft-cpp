@@ -10,6 +10,7 @@
 #include <QNetworkRequest>
 #include <QUrlQuery>
 #include <fstream>
+#include <qtmetamacros.h>
 #include <vector>
 
 class webRecipeSearch : public recipeRestHandler
@@ -27,5 +28,7 @@ class webRecipeSearch : public recipeRestHandler
 		std::vector<webRecipeScraper::foundRecipe> getRecipes();
 	public slots:
 		void onFinish(QNetworkReply* rep);
+	signals:
+		void finished(std::vector<webRecipeScraper::foundRecipe> e);
 };
 
