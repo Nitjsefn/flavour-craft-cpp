@@ -1,5 +1,4 @@
 #include "cpp_components/webRecipeScraper/webRecipeScraper.h"
-#include <sstream>
 
 int webRecipeScraper::scrapRecipesList(QNetworkReply* webPagePtr, std::vector<foundRecipe>* foundRecipes)
 {
@@ -35,12 +34,14 @@ int webRecipeScraper::scrapRecipesList(QNetworkReply* webPagePtr, std::vector<fo
             int i = 0;
             while(line[i] == ' ' || line[i] == '\t') i++;
             recipe.name = QString::fromStdString(line.substr(i));
-            foundRecipes->push_back(recipe);
             found = false;
             continue;
         }
+
         if(trimStartsWith(line, "<a href='/recipedb/search_recipeInfo/"))
 		{
+			if(recipe.id != "")
+            	foundRecipes->push_back(recipe);
 			std::vector<int> indxs = boyerMooreStringSearch(line, "search_recipeInfo/");
             int i = indxs.at(0) + 18;
             while(line[i] != '\'') i++;
@@ -48,6 +49,18 @@ int webRecipeScraper::scrapRecipesList(QNetworkReply* webPagePtr, std::vector<fo
             found = true;
             continue;
         }
+
+		if(trimStartsWith(line, "<a href='/recipedb/search_subregion/"))
+		{
+			std::getline(webPage, line);
+            int i = 0;
+            while(line[i] == ' ' || line[i] == '\t') i++;
+            recipe.cuisine = QString::fromStdString(line.substr(i));
+            foundRecipes->push_back(recipe);
+			recipe = {};
+			continue;
+		}
+
         if(trimStartsWith(line, pattern)) break;
     }
     return foundRecipes->size();
