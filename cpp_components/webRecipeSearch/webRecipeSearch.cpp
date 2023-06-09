@@ -1,5 +1,4 @@
 #include "webRecipeSearch.h"
-#include "cpp_components/recipeRestHandler/recipeRestHandler.h"
 
 webRecipeSearch::webRecipeSearch() {}
 
@@ -31,11 +30,8 @@ void webRecipeSearch::getRecipes(QString query)
 
 void webRecipeSearch::onFinish(QNetworkReply* rep)
 {
-	QFile file("test.web.file.html");
-	file.open(QIODevice::ReadWrite);
-	file.write(rep->readAll());
-	file.close();
 	if(nullptr == rep) return;
+	webRecipeScraper::scrapRecipesList(rep, &foundRecipes);
 	rep->deleteLater();
 }
 
