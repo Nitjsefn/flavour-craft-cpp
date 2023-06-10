@@ -304,7 +304,7 @@ std::vector<int> webRecipeScraper::naiveStringSearch(std::string text, std::stri
     return indxs;
 }
 
-std::string humanizeSteps(std::string src)
+std::string webRecipeScraper::humanizeSteps(std::string src)
 {
     int srcL = src.length();
     auto sb = stringBuilder();
