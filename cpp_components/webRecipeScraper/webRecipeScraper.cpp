@@ -290,3 +290,16 @@ void webRecipeScraper::scrapRecipe(QNetworkReply *webPagePtr, dishInfo *dishData
 			QString::fromStdString(ingredient.quantityInfo) + '\n';
 }
 
+std::vector<int> webRecipeScraper::naiveStringSearch(std::string text, std::string pattern)
+{
+    std::vector<int> indxs;
+    int tL = text.length();
+    int patL = pattern.length();
+    for(int i = 0; i <= tL-patL; i++)
+    {
+        int j = 0;
+        for(j; text[i+j] == pattern[j] && j < patL; j++);
+        if(j == patL) indxs.push_back(i);
+    }
+    return indxs;
+}
