@@ -30,6 +30,7 @@ class webRecipeSearch : public recipeRestHandler
 		void onFinish(QNetworkReply* rep);
 	signals:
 		void connError();
+		void noRecipesFound();
 		void finished(std::vector<webRecipeScraper::foundRecipe> e);
 };
 
