@@ -20,7 +20,7 @@ namespace webRecipeScraper
 	};
 
 	int scrapRecipesList(QNetworkReply* webPagePtr, std::vector<foundRecipe>* foundRecipes);
-	dishInfo scrapRecipe(QNetworkReply* webPage);
+	void scrapRecipe(QNetworkReply* webPage, dishInfo* dishData);
 	bool trimStartsWith(std::string &text, std::string pat);
 	std::vector<int> boyerMooreStringSearch(std::string text, std::string pattern);
 	void stringify(QIODevice* in, std::string &out);
