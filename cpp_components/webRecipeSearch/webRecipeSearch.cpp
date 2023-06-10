@@ -44,7 +44,7 @@ void webRecipeSearch::onFinish(QNetworkReply* rep)
 	rep->deleteLater();
 	if(0 == foundRecipes.size())
 	{
-		emit connError();
+		emit noRecipesFound();
 		return;
 	}
 	emit finished(foundRecipes);
