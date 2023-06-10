@@ -112,3 +112,181 @@ void webRecipeScraper::stringify(QIODevice* in, std::string &out)
 		sb.add(c);
 	out = sb.build();
 }
+
+void webRecipeScraper::scrapRecipe(QNetworkReply *webPagePtr, dishInfo *dishData)
+{
+	struct IngredientStruct
+	{
+		std::string name;
+	    std::string quantity;
+	    std::string quantityInfo;
+	};
+	
+	struct RecipeStruct
+	{
+		std::string name;
+	    std::string img;
+	    std::vector<IngredientStruct> ingredients;
+		std::string steps;
+	    std::string cuisine;
+	};
+	
+	std::stringstream webPage((char*)&(webPagePtr->readAll()[0]));
+
+    RecipeStruct recipe;
+    std::vector<IngredientStruct> ingredients;
+    IngredientStruct ingredient;
+	std::string line;
+    int foundLvl = 0;
+    int ingrRowsCounter = 0;
+    // Searching for recipe name
+    recipe.name = "";
+    while(std::getline(webPage, line))
+    {
+        if(trimStartsWith(line, "<center>"))
+        {
+            bool start = true;
+            int firstChrInLine = 0;
+            while(line[firstChrInLine] == ' ' || line[firstChrInLine] == '\t')
+                firstChrInLine++;
+            for(char c : line.substr(firstChrInLine))
+            {
+                if(c == '<') start = false;
+                else if(c == '>') start = true;
+                else if(start) recipe.name += c;
+            }
+            break;
+        }
+    }
+    // Searching for recipe image
+    while(std::getline(webPage, line))
+    {
+        if(foundLvl == 0 && trimStartsWith(line, "<div class=\"col s12 m5 center\""))
+        {
+            foundLvl++;
+            continue;
+        }
+        if(foundLvl == 1 && trimStartsWith(line, "<img"))
+        {
+            int i_start = naiveStringSearch(line, "src=").at(0);
+            i_start += 5;
+            int i_stop = i_start;
+			std::vector<int> i_stop_possible = naiveStringSearch(line, "\" ");
+            for(int j : i_stop_possible)
+            {
+                if(j > i_start) i_stop = j;
+            }
+            recipe.img = line.substr(i_start, i_stop - i_start);
+            foundLvl--;
+            break;
+        }
+    }
+    // Searching for cuisine
+    while(std::getline(webPage, line))
+    {
+        if(trimStartsWith(line, "<span cl"))
+        {
+            if(trimStartsWith(line, "<span class=\"title\"><strong>Cuisine"))
+            {
+				std::getline(webPage, line);
+                int start_indx = 0;
+                while(line[start_indx] == ' ' || line[start_indx] == '\t')
+                    start_indx++;
+                recipe.cuisine = "";
+                int tmp = 0;
+                while(line[tmp] == ' ' || line[tmp] == '\t') tmp++;
+                line = line.substr(tmp);
+                for(char c : line)
+                {
+                    if(foundLvl == 0 && c != '<') recipe.cuisine += c;
+                    else if(foundLvl == 0 && c == '<') foundLvl++;
+                    else if(foundLvl == 1 && c == '>') foundLvl--;
+                }
+                break;
+            }
+        }
+    }
+    // Searching for steps
+    while(std::getline(webPage, line))
+    {
+        if(foundLvl == 0 && trimStartsWith(line, "<div id=\"st")) foundLvl++;
+        else if(foundLvl == 1 && !trimStartsWith(line, "</di"))
+        {
+            recipe.steps = line;
+            foundLvl--;
+            break;
+        }
+    }
+    // Searching for ingredients
+    while(std::getline(webPage, line))
+    {
+        if(foundLvl == 0 && trimStartsWith(line, "<div id=\"ingred"))
+        {
+            foundLvl++;
+            continue;
+        }
+        if(foundLvl == 1 && trimStartsWith(line, "<tbody"))
+        {
+            foundLvl++;
+            continue;
+        }
+        if(foundLvl == 2 && trimStartsWith(line, "<tr>"))
+        {
+            ingredient.name = "";
+            ingredient.quantity = "";
+            ingredient.quantityInfo = "";
+            ingrRowsCounter = 0;
+            foundLvl++;
+            continue;
+        }
+        if(foundLvl == 3 && trimStartsWith(line, "<td>") && ingrRowsCounter < 3)
+        {
+            int lineL = line.length();
+            for(int i = 0; i < lineL; i++)
+            {//Line under is checking if line[i] is first character of ingredient info.
+            //Sometimes there is <a href...> tag before the actual info (but after <td>)
+                if(foundLvl == 3 && line[i] == '>' && i+1 < lineL && (line[i+1] != '<' || line[i+2] != 'a'))
+                {
+                    foundLvl++;
+                    continue;
+                }
+                if(foundLvl == 4 && line[i] == '<' && line[i+1] == '/')
+                {
+                    ingrRowsCounter++;
+                    foundLvl--;
+                    break;
+                }
+                if(foundLvl == 4)
+                {
+                    if(ingrRowsCounter == 0) ingredient.name += line[i];
+                    else if(ingrRowsCounter == 1) ingredient.quantity += line[i];
+                    else ingredient.quantityInfo += line[i];
+                    continue;
+                }
+            }
+            continue;
+        }
+        if(foundLvl == 3 && trimStartsWith(line, "</tr>"))
+        {
+            foundLvl--;
+            ingredients.push_back(ingredient);
+            continue;
+        }
+        if(foundLvl == 2 && trimStartsWith(line, "</tbody>"))
+        {
+            foundLvl--;
+            recipe.ingredients = ingredients;
+            break;
+        }
+    }
+	dishData->dishName = QString::fromStdString(recipe.name);
+	dishData->dishRecipeSteps = QString::fromStdString(recipe.steps);
+	dishData->dishCountry = QString::fromStdString(recipe.cuisine);
+	dishData->dishPhotoLink = QString::fromStdString(recipe.img);
+	for(auto ingredient : recipe.ingredients)
+		dishData->dishIndegrients +=\
+			QString::fromStdString(ingredient.name) + ": " +\
+			QString::fromStdString(ingredient.quantity) + ' ' +\
+			QString::fromStdString(ingredient.quantityInfo) + '\n';
+}
+
