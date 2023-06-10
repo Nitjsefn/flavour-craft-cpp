@@ -25,7 +25,7 @@ void webRecipeSearch::searchForRecipes()
 void webRecipeSearch::searchForRecipes(QString query)
 {
 	this->setRecipeQuery(query);
-	this->getRecipes();
+	this->searchForRecipes();
 }
 
 std::vector<webRecipeScraper::foundRecipe> webRecipeSearch::getRecipes()
@@ -39,5 +39,7 @@ void webRecipeSearch::onFinish(QNetworkReply* rep)
 	webRecipeScraper::scrapRecipesList(rep, &foundRecipes);
 	rep->deleteLater();
 	emit finished(foundRecipes);
+	//for(auto l : foundRecipes)
+	//	qDebug() << l.name << ' ' << l.cuisine << ' ' << l.id << '\n';
 }
 
