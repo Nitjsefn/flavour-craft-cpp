@@ -1,7 +1,4 @@
 #include "cpp_components/webRecipeGetter/webRecipeGetter.h"
-#include "cpp_components/webRecipeScraper/webRecipeScraper.h"
-#include <qnetworkreply.h>
-#include <qurl.h>
 
 void webRecipeGetter::fillDish()
 {
@@ -19,6 +16,8 @@ bool webRecipeGetter::isDishEmpty()
 	if("" != dishData.dishRecipeSteps) sum++;
 	return !sum;
 }
+
+webRecipeGetter::webRecipeGetter() {}
 
 webRecipeGetter::webRecipeGetter(Dish* dish)
 {
