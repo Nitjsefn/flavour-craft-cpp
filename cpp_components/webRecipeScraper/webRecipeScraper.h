@@ -24,5 +24,5 @@ namespace webRecipeScraper
 	bool trimStartsWith(std::string &text, std::string pat);
 	std::vector<int> boyerMooreStringSearch(std::string text, std::string pattern);
 	void stringify(QIODevice* in, std::string &out);
-	void naiveStringSearch(std::string text, std::string pattern);
+	std::vector<int> naiveStringSearch(std::string text, std::string pattern);
 };
