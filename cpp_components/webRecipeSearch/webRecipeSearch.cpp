@@ -35,9 +35,18 @@ std::vector<webRecipeScraper::foundRecipe> webRecipeSearch::getRecipes()
 
 void webRecipeSearch::onFinish(QNetworkReply* rep)
 {
-	if(nullptr == rep) return;
+	if(nullptr == rep) 
+	{
+		emit connError();
+		return;
+	}
 	webRecipeScraper::scrapRecipesList(rep, &foundRecipes);
 	rep->deleteLater();
+	if(0 == foundRecipes.size())
+	{
+		emit connError();
+		return;
+	}
 	emit finished(foundRecipes);
 	//for(auto l : foundRecipes)
 	//	qDebug() << l.name << ' ' << l.cuisine << ' ' << l.id << '\n';
