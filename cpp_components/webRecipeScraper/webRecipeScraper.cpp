@@ -303,3 +303,46 @@ std::vector<int> webRecipeScraper::naiveStringSearch(std::string text, std::stri
     }
     return indxs;
 }
+
+std::string humanizeSteps(std::string src)
+{
+    int srcL = src.length();
+    auto sb = stringBuilder();
+    int i = 0;
+    while(i < srcL && (' ' == src[i] || '\t' == src[i] || '|' == src[i])) i++;
+    for(i; i < srcL; i++)
+    {
+        if(' ' == src[i])
+        {
+            if(i+1 < srcL && '|' == src[i+1])
+            {
+                sb.add('\n');
+                i++;
+                if(i+2 < srcL && ' ' == src[i+1]) i++;
+                continue;                
+            }
+        }
+        if('|' == src[i])
+        {
+            sb.add('\n');
+            if(i+1 < srcL && ' ' == src[i+1]) i++;
+            continue;
+        }
+        if('-' == src[i])
+        {
+            if(i+1 < srcL && '-' == src[i+1])
+                if(i+2 < srcL && '-' == src[i+2])
+                {
+                    break;
+                }
+                    
+        }
+        if('\t' == src[i])
+        {
+            for(int i = 0; i < 4; i++) sb.add(' ');
+            continue;
+        }
+        sb.add(src[i]);
+    }
+    return sb.build();
+}

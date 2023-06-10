@@ -25,4 +25,5 @@ namespace webRecipeScraper
 	std::vector<int> boyerMooreStringSearch(std::string text, std::string pattern);
 	void stringify(QIODevice* in, std::string &out);
 	std::vector<int> naiveStringSearch(std::string text, std::string pattern);
+	std::string humanizeSteps(std::string src);
 };
