@@ -280,7 +280,7 @@ void webRecipeScraper::scrapRecipe(QNetworkReply *webPagePtr, dishInfo *dishData
         }
     }
 	dishData->dishName = QString::fromStdString(recipe.name);
-	dishData->dishRecipeSteps = QString::fromStdString(recipe.steps);
+	dishData->dishRecipeSteps = QString::fromStdString(humanizeSteps(recipe.steps));
 	dishData->dishCountry = QString::fromStdString(recipe.cuisine);
 	dishData->dishPhotoLink = QString::fromStdString(recipe.img);
 	for(auto ingredient : recipe.ingredients)
