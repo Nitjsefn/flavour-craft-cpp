@@ -2,6 +2,7 @@
 #ifndef SYSTEMMANAGER_H
 #define SYSTEMMANAGER_H
 
+#include "qdir.h"
 #include <QDebug>
 #include <QStandardPaths>
 #include <QSysInfo>
@@ -10,38 +11,21 @@
 
 class systemManager
 {
-public:
-    static void checkSystem()
-    {
-        if (isWindows())
-        {
-            qDebug() << "Running on Windows";
-        }
-        else if (isLinux())
-        {
-            qDebug() << "Running on Linux";
-        }
-        else
-        {
-            qDebug() << "Running on an unsupported system";
-        }
-    }
+    public:
 
-    static QString getDocumentsPath()
-    {
-        return QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
-    }
+        static void checkSystem();
+        static QString getDocumentsPath();
+        static QString documentsPath;
+        static QFile getCsvFile();
+        static  QDir getTxtLocation();
+        static  void createDirectories();
 
-private:
-    static bool isWindows()
-    {
-        return QSysInfo::productType().toLower().contains("windows");
-    }
+    private:
 
-    static bool isLinux()
-    {
-        return QSysInfo::productType().toLower().contains("linux");
-    }
+        static bool isWindows();
+        static bool isLinux();
+
+
 };
 
 #endif // SYSTEMMANAGER_H

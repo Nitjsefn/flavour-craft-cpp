@@ -13,6 +13,8 @@ Rectangle
     anchors.fill: parent
     color: "#11131A"
 
+    property int childProperty: 20
+    signal mySignal(string lol)
     Values
     {
         id: values
@@ -75,7 +77,6 @@ Rectangle
             anchors.rightMargin: 20
             anchors.verticalCenter: parent.verticalCenter
             property bool searchButton: true
-
             Text
             {
                 anchors.centerIn: parent
@@ -92,6 +93,7 @@ Rectangle
                 onClicked:
                 {
                     search_handler.searchLocalDish(recipeInput.text)
+                    recipeInput.clear()
                     recipeListView.listViewVisible = true
                 }
             }
@@ -117,7 +119,7 @@ Rectangle
         delegate: Rectangle //jak wyglada jeden element
         {
             id: delegatedItemPattern
-            width: parent.width
+            width: searchPage.width/6*4
             height: 50
             color: "#724E91"
             radius: 15
@@ -157,6 +159,7 @@ Rectangle
                         anchors.fill: parent
                         onClicked:
                         {
+                            //console.log(model.dishPhotoLink)
                             dishImage.pathImage = model.dishPhotoLink
                             dishImageTitleText.text = model.dishName
                             dishImageItem.visible = true
@@ -165,7 +168,6 @@ Rectangle
                             menuButton.visible = false
                         }
                     }
-
                 }
 
                 Text
@@ -197,11 +199,13 @@ Rectangle
 
                 MouseArea
                 {
+                    signal ustawWzor(string wzor)
                     anchors.fill: parent
                     onClicked:
                     {
                         recipeListView.listViewVisible = false
-                        search_handler.loadDish(model.index)
+                        search_handler.loadDish(model.index);
+                        search_handler.clearDishes();
                     }
                 }
             }
@@ -217,7 +221,7 @@ Rectangle
         Image
         {
             id: dishImage
-            source: "file"
+            //source: "file"
             property alias pathImage: dishImage.source
             width: parent.width/3*2
             height: parent.height/3*2
@@ -238,7 +242,7 @@ Rectangle
         Text
         {
             id: dishImageTitleText
-            text: qsTr()
+            //text: qsTr()
             font.family: "Consolas"
             font.bold: true
             font.pointSize: 12

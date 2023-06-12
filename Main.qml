@@ -26,17 +26,35 @@ Window
 
     property int navigationButtons: 0
 
-    Values
-    {
-        id: values
-    }
+
 
     Loader
     {
         id: mainLoader
         anchors.fill: parent
         source: "qrc:/pages/MainPage.qml"
+        onLoaded:
+        {
+            // Załadowano plik Child.qml
+            //var childItem = mainLoader.item;
+            //console.log(childItem.childProperty); // Wyświetli właściwość childProperty z Child.qml
+        }
     }
+
+    Connections
+    {
+        target: search_handler
+        function onLoadDishFinished(source)
+        {
+            //console.log(source)
+            mainLoader.source = source;
+        }
+    }
+
+    Values
+    {
+        id: values
+    } 
 
     CustomButton
     {
@@ -106,7 +124,7 @@ Window
             {
                 if(testButton.sourceId == 0)
                 {
-                    mainLoader.source = "qrc:/pages/TestPage.qml"
+                    mainLoader.source = "qrc:/pages/DishPage.qml"
                     testButton.sourceId = 1
                 }
                 else
