@@ -70,6 +70,11 @@ bool webRecipeScraper::trimStartsWith(std::string &text, std::string pat)
 {
     int patL = pat.length();
     int textL = text.length();
+	if(0 == textL)
+	{
+		if(0 == patL) return true;
+		return false;
+	}
     int i = 0;
     int j = 0;
     while(i < textL && (text[i] == '\t' || text[i] == ' ')) i++;
@@ -279,6 +284,10 @@ void webRecipeScraper::scrapRecipe(QNetworkReply *webPagePtr, dishInfo *dishData
             break;
         }
     }
+	if(trimStartsWith(recipe.img, "/recipedb/static"))
+		recipe.img = "https://cosylab.iiitd.edu.in/recipedb/static/recipe_temp.jpg";
+	if(!trimStartsWith(recipe.img, "https://"))
+		recipe.img = "";
 	dishData->dishName = QString::fromStdString(recipe.name);
 	dishData->dishRecipeSteps = QString::fromStdString(humanizeSteps(recipe.steps));
 	dishData->dishCountry = QString::fromStdString(recipe.cuisine);
