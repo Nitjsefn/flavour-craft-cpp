@@ -101,39 +101,39 @@ Window
         }
     }
 
-    CustomButton
-    {
-        id: testButton
-        x: parent.width - width - menuButton.width - backButton.width - 24 - 24 - 24
-        y: parent.height - height - 24
-        property int sourceId: 0
-        Text
-        {
-            color: values.buttonTextColor
-            text: "Test"
-            font.bold: true
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
-            anchors.centerIn: parent
-            font.pointSize: 16
-        }
-        MouseArea
-        {
-            anchors.fill: parent
-            onClicked:
-            {
-                if(testButton.sourceId == 0)
-                {
-                    mainLoader.source = "qrc:/pages/DishPage.qml"
-                    testButton.sourceId = 1
-                }
-                else
-                {
-                    mainLoader.source = "qrc:/pages/MainPage.qml"
-                    testButton.sourceId = 0
-                }
-            }
-        }
-    }
+//    CustomButton
+//    {
+//        id: testButton
+//        x: parent.width - width - menuButton.width - backButton.width - 24 - 24 - 24
+//        y: parent.height - height - 24
+//        property int sourceId: 0
+//        Text
+//        {
+//            color: values.buttonTextColor
+//            text: "Test"
+//            font.bold: true
+//            verticalAlignment: Text.AlignVCenter
+//            horizontalAlignment: Text.AlignHCenter
+//            anchors.centerIn: parent
+//            font.pointSize: 16
+//        }
+//        MouseArea
+//        {
+//            anchors.fill: parent
+//            onClicked:
+//            {
+//                if(testButton.sourceId == 0)
+//                {
+//                    mainLoader.source = "qrc:/pages/DishPage.qml"
+//                    testButton.sourceId = 1
+//                }
+//                else
+//                {
+//                    mainLoader.source = "qrc:/pages/MainPage.qml"
+//                    testButton.sourceId = 0
+//                }
+//            }
+//        }
+//    }
 
 }

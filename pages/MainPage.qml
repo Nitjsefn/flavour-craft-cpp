@@ -1,8 +1,9 @@
 import QtQuick 2.15
-import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.3
 import QtQuick.Window 2.15
+import QtQuick.Controls 2.15
 import QtQuick.Controls 2.12
+import QtQuick.Layouts 1.3
+//import QtQuick.Dialogs 1.4
 import Qt.labs.platform 1.1
 
 
@@ -249,20 +250,20 @@ Rectangle
 
         Rectangle //about
         {
-            id: aboutButtonButton
+            id: aboutButton
             width: 256 + 96
             height: 96
             radius: 30
             Rectangle
             {
-                id: aboutButtonButtonBackground
+                id: aboutButtonBackground
                 color: values.buttonColor
                 radius: 30
                 anchors.fill: parent
 
                 Image
                 {
-                    id: aboutButtonButtonImage
+                    id: aboutButtonImage
                     sourceSize: Qt.size(80, 80)
                     fillMode: Image.PreserveAspectFit
                     anchors.verticalCenter: parent.verticalCenter
@@ -276,7 +277,7 @@ Rectangle
                     width: 256
                     height: 96
                     color: "transparent"
-                    anchors.left: aboutButtonButtonImage.right
+                    anchors.left: aboutButtonImage.right
                     anchors.top: parent.top
                     anchors.bottom: parent.bottom
                     Text
@@ -301,11 +302,11 @@ Rectangle
                     {
                             if(hovered)
                             {
-                                aboutButtonButtonBackground.color = "#80000000"
+                                aboutButtonBackground.color = "#80000000"
                             }
                             else
                             {
-                                aboutButtonButtonBackground.color = values.buttonColor
+                                aboutButtonBackground.color = values.buttonColor
                             }
                         //console.log("aboutButton hovered")
                     }
@@ -322,6 +323,84 @@ Rectangle
                 }
             }
         }
+
+        Rectangle //local base edit
+        {
+            id: localBaseEditButton
+            width: 256 + 96
+            height: 96
+            radius: 30
+            Rectangle
+            {
+                id: localBaseEditButtonBackground
+                color: values.buttonColor
+                radius: 30
+                anchors.fill: parent
+
+                Image
+                {
+                    id: localBaseEditButtonImage
+                    sourceSize: Qt.size(80, 80)
+                    fillMode: Image.PreserveAspectFit
+                    anchors.verticalCenter: parent.verticalCenter
+                    //anchors.left: parent.left
+                    x: parent.x + 16
+                    source: "qrc:/assets/ui/Assets/iconmonstr-folder-30.svg"
+                }
+
+                Rectangle
+                {
+                    width: 256
+                    height: 96
+                    color: "transparent"
+                    anchors.left: localBaseEditButtonImage.right
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
+                    Text
+                    {
+                        //width: 120
+                        text: "Edytuj \nprzepisy"
+                        color: "#533B4D"
+                        font.pointSize: 24
+                        font.family: "Consolas"
+                        font.bold: true
+                        font.italic: true
+                        wrapMode: Text.Wrap
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        //anchors.right: parent.right
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                    }
+                }
+                HoverHandler
+                {
+                    onHoveredChanged:
+                    {
+                            if(hovered)
+                            {
+                                localBaseEditButtonBackground.color = "#80000000"
+                            }
+                            else
+                            {
+                                localBaseEditButtonBackground.color = values.buttonColor
+                            }
+                        //console.log("aboutButton hovered")
+                    }
+                }
+            }
+            MouseArea
+            {
+                anchors.fill: parent
+                onClicked:
+                {
+                    console.log("localBaseEditButtonBackground hovered")
+                    mainWindow.navigationButtons = 1
+                }
+            }
+        }
+
+
 
     }
 
