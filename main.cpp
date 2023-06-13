@@ -4,19 +4,20 @@
 #include <QIcon>
 
 
-#include "cpp_components/searchManager/searchmanager.h"
-
-
+#include "cpp_components/localSearchManager/localsearchmanager.h"
+#include "cpp_components/systemManager/systemmanager.h"
 
 int main(int argc, char *argv[])
 {
-    QGuiApplication app(argc, argv);    
+    systemManager::checkSystem();
+    qDebug()<< systemManager::getDocumentsPath();
+    systemManager::createDirectories();
+
+    QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
 
-    searchManager search_handler;
+    localSearchManager search_handler;
     engine.rootContext()->setContextProperty("search_handler",&search_handler);
-    //engine.rootContext()->setContextProperty("dishlistmodel", search_handler.getDishListModel());
-
 
     const QUrl url(u"qrc:/FlavorCraft/Main.qml"_qs);
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,
