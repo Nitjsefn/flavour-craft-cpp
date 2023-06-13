@@ -8,13 +8,15 @@ void webRecipeGetter::fillDish()
 
 bool webRecipeGetter::isDishEmpty()
 {
-	int sum = 0;
-	if("" != dishData.dishCountry) sum++;
-	if("" != dishData.dishIndegrients) sum++;
-	if("" != dishData.dishName) sum++;
-	if("" != dishData.dishPhotoLink) sum++;
-	if("" != dishData.dishRecipeSteps) sum++;
-	return !sum;
+	//int sum = 0;
+	//if("" != dishData.dishCountry) sum++;
+	//if("" != dishData.dishIndegrients) sum++;
+	//if("" != dishData.dishName) sum++;
+	//if("" != dishData.dishPhotoLink) sum++;
+	//if("" != dishData.dishRecipeSteps) sum++;
+	//return !sum;
+	if("" == dishData.dishPhotoLink) return true;
+	return false;
 }
 
 webRecipeGetter::webRecipeGetter() {}
