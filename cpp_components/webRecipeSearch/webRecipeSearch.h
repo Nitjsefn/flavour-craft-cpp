@@ -23,10 +23,10 @@ class webRecipeSearch : public recipeRestHandler
 		webRecipeSearch();
 		webRecipeSearch(QUrl url);
 		void setRecipeQuery(QString query);
-		void searchForRecipes();
-		void searchForRecipes(QString query);
+        void searchForRecipes();
 		std::vector<webRecipeScraper::foundRecipe> getRecipes();
 	public slots:
+        void searchForRecipes(QString query);
 		void onFinish(QNetworkReply* rep);
 	signals:
 		void connError();
