@@ -2,12 +2,13 @@
 #ifndef LOCALSEARCHMANAGER_H
 #define LOCALSEARCHMANAGER_H
 
-
+#include <vector>
 #include <QObject>
 #include <QAbstractListModel>
 
 
 #include "cpp_components/dish/dish.h"
+#include "cpp_components/webRecipeScraper/webRecipeScraper.h"
 
 
 
@@ -32,16 +33,20 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
     void addDish(const Dish &dish);
-    void updateDishes(); //funkcja do dodawania nowego przepisu do indexow itp;
+    void updateDishes(); //funkcja do dodawania/USUWANIA, NOWEGO  przepisu do indexow itp;
 
 signals:
-    void loadDishFinished(QString source );
+    void loadDishFinished(QString source);
+    void getWebDish(Dish* dish);
     void setUpDish(QList<QString> aboutDish);
 
 public slots:
     void searchLocalDish(QString dishName); //do szukania
-    void loadDish(int index); //do ladowania jednego konkretnego wybranego disha
+    void searchOnlineDish(std::vector<webRecipeScraper::foundRecipe> foundRecipes); //do obslugi onlinowego backendu
+    void loadDish(int index); //do ladowania jednego konkretnego wybranego lokalsa disha
+    void loadOnlineDish(int index); //do ladowania jednego konkretnego wybrnego online disha
     void clearDishes(); //czyszczenie dishy w ramie
+    void loadWebDish(Dish* dish);
 
 private:
     QList<Dish> dishes;

@@ -66,3 +66,8 @@ void webRecipeGetter::onFinish(QNetworkReply* rep)
 	emit finished(dishToFill);
 }
 
+void webRecipeGetter::getWebRecipeSlot(Dish* dish)
+{
+    this->setDish(dish);
+    this->getWebRecipe(QUrl(DB_URL_PREFIX+dish->getDishPath()));
+}

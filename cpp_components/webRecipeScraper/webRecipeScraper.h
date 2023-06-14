@@ -14,7 +14,7 @@ namespace webRecipeScraper
 
 	struct foundRecipe
 	{
-		QString id;
+        QString id; //przekazujemy id
 		QString name;
 		QString cuisine;
 	};

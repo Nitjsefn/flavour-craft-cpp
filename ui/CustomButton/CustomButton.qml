@@ -14,6 +14,10 @@ Rectangle
     height: 48
     radius: 15
     color: values.buttonColor
+
+    //border.color: "black"
+    //border.width: 4
+
     HoverHandler
     {
         onHoveredChanged:

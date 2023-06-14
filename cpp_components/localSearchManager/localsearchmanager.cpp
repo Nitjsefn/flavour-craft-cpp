@@ -141,6 +141,19 @@ void localSearchManager::searchLocalDish(QString searchedText)
     csv.close();
 }
 
+void localSearchManager::searchOnlineDish(std::vector<webRecipeScraper::foundRecipe> foundRecipes)
+{
+    //qDebug()<<foundRecipes.at(0).name;
+    beginResetModel();
+    dishes.clear();
+    endResetModel();
+
+    for(auto recipe : foundRecipes)
+    {
+        addDish(Dish(recipe.name,recipe.cuisine,recipe.id));
+    }
+}
+
 void localSearchManager::loadDish(int index)
 {
     qDebug()<< "index: "<<index;
@@ -157,6 +170,15 @@ void localSearchManager::loadDish(int index)
 
 }
 
+void localSearchManager::loadOnlineDish(int index)
+{
+    qDebug()<< "index: "<<index;
+    chosenDish = dishes[index];
+    clearDishes();
+    qDebug()<< "cleared";
+    emit getWebDish(&chosenDish);
+}
+
 void localSearchManager::clearDishes()
 {
     beginResetModel();
@@ -164,5 +186,12 @@ void localSearchManager::clearDishes()
     endResetModel();
 }
 
-
+void localSearchManager::loadWebDish(Dish* dish)
+{
+    emit setUpDish({chosenDish.getDishName(),
+                    chosenDish.getDishCountry(),
+                    chosenDish.getDishRecipeSteps(),
+                    chosenDish.getDishIndegrients(),
+                    chosenDish.getDishPhotoLink()});
+}
 

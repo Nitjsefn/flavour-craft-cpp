@@ -3,13 +3,8 @@ import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.3
-//import QtQuick.Dialogs 1.4
 import Qt.labs.platform 1.1
 
-
-import "qrc:/ui/UpperPhoto"
-import "qrc:/ui/AboutDish"
-import "qrc:/ui/DishIngredients"
 import "qrc:/ui/CustomButton"
 import "qrc:/ui/Values"
 
@@ -174,6 +169,167 @@ Rectangle
             }
         }
 
+        Row
+        {
+            id: localDataBaseOptions
+            spacing: 20
+
+            Rectangle //local base edit
+            {
+                id: localDataBaseAdd
+                width: 176 - 10
+                height: 48
+                radius: 30
+
+                Rectangle
+                {
+                    id: localDataBaseAddBackground
+                    color: values.buttonColor
+                    radius: 30
+                    anchors.fill: parent
+
+                    Image
+                    {
+                        id: localDataBaseAddBackgroundImage
+                        sourceSize: Qt.size(40, 40)
+                        fillMode: Image.PreserveAspectFit
+                        anchors.verticalCenter: parent.verticalCenter
+                        //anchors.left: parent.left
+                        x: parent.x + 16
+                        source: "qrc:/assets/ui/Assets/iconmonstr-folder-24.svg"
+                    }
+
+                    Rectangle
+                    {
+                        width: 176 - 40 - 20
+                        height: 48
+                        color: "transparent"
+                        anchors.left: localDataBaseAddBackgroundImage.right
+                        anchors.top: parent.top
+                        anchors.bottom: parent.bottom
+                        Text
+                        {
+                            //width: 120
+                            text: "Dodaj\nprzepis"
+                            color: "#533B4D"
+                            font.pointSize: 12
+                            font.family: "Consolas"
+                            font.bold: true
+                            font.italic: true
+                            wrapMode: Text.Wrap
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            //anchors.right: parent.right
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                        }
+                    }
+                    HoverHandler
+                    {
+                        onHoveredChanged:
+                        {
+                                if(hovered)
+                                {
+                                    localDataBaseAddBackground.color = "#80000000"
+                                }
+                                else
+                                {
+                                    localDataBaseAddBackground.color = values.buttonColor
+                                }
+                            //console.log("aboutButton hovered")
+                        }
+                    }
+                }
+                MouseArea
+                {
+                    anchors.fill: parent
+                    onClicked:
+                    {
+                        console.log("Add recipe pressed")
+                        mainWindow.navigationButtons = 1
+                    }
+                }
+            }
+
+
+            Rectangle //local base edit
+            {
+                id: localDataBaseDelete
+                width: 176 - 10
+                height: 48
+                radius: 30
+
+                Rectangle
+                {
+                    id: localDataBaseDeleteBackground
+                    color: values.buttonColor
+                    radius: 30
+                    anchors.fill: parent
+
+                    Image
+                    {
+                        id: localDataBaseDeleteBackgroundImage
+                        sourceSize: Qt.size(40, 40)
+                        fillMode: Image.PreserveAspectFit
+                        anchors.verticalCenter: parent.verticalCenter
+                        //anchors.left: parent.left
+                        x: parent.x + 16
+                        source: "qrc:/assets/ui/Assets/iconmonstr-trash-can-lined.svg"
+                    }
+
+                    Rectangle
+                    {
+                        width: 176 - 40 - 20
+                        height: 48
+                        color: "transparent"
+                        anchors.left: localDataBaseDeleteBackgroundImage.right
+                        anchors.top: parent.top
+                        anchors.bottom: parent.bottom
+                        Text
+                        {
+                            //width: 120
+                            text: "Usuń\nprzepis"
+                            color: "#533B4D"
+                            font.pointSize: 12
+                            font.family: "Consolas"
+                            font.bold: true
+                            font.italic: true
+                            wrapMode: Text.Wrap
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            //anchors.right: parent.right
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+                        }
+                    }
+                    HoverHandler
+                    {
+                        onHoveredChanged:
+                        {
+                                if(hovered)
+                                {
+                                    localDataBaseDeleteBackground.color = "#80000000"
+                                }
+                                else
+                                {
+                                    localDataBaseDeleteBackground.color = values.buttonColor
+                                }
+                            //console.log("aboutButton hovered")
+                        }
+                    }
+                }
+                MouseArea
+                {
+                    anchors.fill: parent
+                    onClicked:
+                    {
+                        console.log("Delete recipe pressed")
+                        mainWindow.navigationButtons = 1
+                    }
+                }
+            }
+        }
+
         Rectangle //internet
         {
             id: internetDataBaseButton
@@ -243,6 +399,8 @@ Rectangle
                 anchors.fill: parent
                 onClicked:
                 {
+                    mainLoader.source = "qrc:/pages/SearchOnlinePage.qml"
+                    mainWindow.navigationButtons = 1
                     //console.log("internetButton clicked")
                 }
             }
@@ -323,85 +481,5 @@ Rectangle
                 }
             }
         }
-
-        Rectangle //local base edit
-        {
-            id: localBaseEditButton
-            width: 256 + 96
-            height: 96
-            radius: 30
-            Rectangle
-            {
-                id: localBaseEditButtonBackground
-                color: values.buttonColor
-                radius: 30
-                anchors.fill: parent
-
-                Image
-                {
-                    id: localBaseEditButtonImage
-                    sourceSize: Qt.size(80, 80)
-                    fillMode: Image.PreserveAspectFit
-                    anchors.verticalCenter: parent.verticalCenter
-                    //anchors.left: parent.left
-                    x: parent.x + 16
-                    source: "qrc:/assets/ui/Assets/iconmonstr-folder-30.svg"
-                }
-
-                Rectangle
-                {
-                    width: 256
-                    height: 96
-                    color: "transparent"
-                    anchors.left: localBaseEditButtonImage.right
-                    anchors.top: parent.top
-                    anchors.bottom: parent.bottom
-                    Text
-                    {
-                        //width: 120
-                        text: "Edytuj \nprzepisy"
-                        color: "#533B4D"
-                        font.pointSize: 24
-                        font.family: "Consolas"
-                        font.bold: true
-                        font.italic: true
-                        wrapMode: Text.Wrap
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        //anchors.right: parent.right
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                    }
-                }
-                HoverHandler
-                {
-                    onHoveredChanged:
-                    {
-                            if(hovered)
-                            {
-                                localBaseEditButtonBackground.color = "#80000000"
-                            }
-                            else
-                            {
-                                localBaseEditButtonBackground.color = values.buttonColor
-                            }
-                        //console.log("aboutButton hovered")
-                    }
-                }
-            }
-            MouseArea
-            {
-                anchors.fill: parent
-                onClicked:
-                {
-                    console.log("localBaseEditButtonBackground hovered")
-                    mainWindow.navigationButtons = 1
-                }
-            }
-        }
-
-
-
-    }
-
+    }    
 }

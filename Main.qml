@@ -2,10 +2,6 @@ import QtQuick
 import QtQuick.Window
 import QtQuick.Controls 2.15
 
-
-import "qrc:/ui/UpperPhoto"
-import "qrc:/ui/AboutDish"
-import "qrc:/ui/DishIngredients"
 import "qrc:/ui/CustomButton"
 import "qrc:/ui/Values"
 import "qrc:/pages"
@@ -25,19 +21,33 @@ Window
     title: qsTr("FlavourCraft")
 
     property int navigationButtons: 0
-
-
+    property string previousSource: "qrc:/pages/MainPage.qml"
+    property string currentSource: "qrc:/pages/MainPage.qml"
 
     Loader
     {
         id: mainLoader
         anchors.fill: parent
         source: "qrc:/pages/MainPage.qml"
-        onLoaded:
+    }
+
+    // Funkcja do wywołania po zmianie zawartości Loadera
+    function onLoaderContentChanged()
+    {
+        mainWindow.previousSource = mainWindow.currentSource
+        mainWindow.currentSource = mainLoader.source
+        if(mainWindow.currentSource === "qrc:/pages/MainPage.qml")
+            navigationButtons = 0
+        if(mainWindow.previousSource === "qrc:/pages/DishPage.qml")
+            mainWindow.previousSource = "qrc:/pages/MainPage.qml"
+    }
+
+    Connections
+    {
+        target: mainLoader
+        function onLoaded()
         {
-            // Załadowano plik Child.qml
-            //var childItem = mainLoader.item;
-            //console.log(childItem.childProperty); // Wyświetli właściwość childProperty z Child.qml
+            onLoaderContentChanged()
         }
     }
 
@@ -51,6 +61,15 @@ Window
         }
     }
 
+    Connections
+        {
+            target: webSearch_getter
+            function onFinished(source)
+            {
+                mainLoader.source = "qrc:/pages/DishPage.qml";
+            }
+        }
+
     Values
     {
         id: values
@@ -58,7 +77,7 @@ Window
 
     CustomButton
     {
-        id: backButton
+        id: backButton;
         x: parent.width - width - menuButton.width - 24 - 24
         y: parent.height - height - 24
         visible: navigationButtons ? true : false
@@ -71,6 +90,19 @@ Window
             horizontalAlignment: Text.AlignHCenter
             anchors.centerIn: parent
             font.pointSize: 16
+        }
+        MouseArea
+        {
+            anchors.fill: parent
+            onClicked:
+            {
+                mainLoader.source = mainWindow.previousSource
+                if(mainLoader.source === "qrc:/pages/MainPage.qml")
+                {
+                    console.log("logical value does not depend")
+                    mainWindow.navigationButtons = 0;
+                }
+            }
         }
     }
 
