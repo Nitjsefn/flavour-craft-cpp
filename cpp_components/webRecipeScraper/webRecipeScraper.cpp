@@ -2,6 +2,7 @@
 
 int webRecipeScraper::scrapRecipesList(QNetworkReply* webPagePtr, std::vector<foundRecipe>* foundRecipes)
 {
+	if(!webPagePtr->bytesAvailable()) return -1;
 //	std::string* webPageS = new std::string;
 //	stringify(webPagePtr, *webPageS);
 //	std::istringstream webPage(*webPageS);
@@ -118,8 +119,9 @@ void webRecipeScraper::stringify(QIODevice* in, std::string &out)
 	out = sb.build();
 }
 
-void webRecipeScraper::scrapRecipe(QNetworkReply *webPagePtr, dishInfo *dishData)
+int webRecipeScraper::scrapRecipe(QNetworkReply *webPagePtr, dishInfo *dishData)
 {
+	if(!webPagePtr->bytesAvailable()) return -1;
 	struct IngredientStruct
 	{
 		std::string name;
@@ -297,6 +299,7 @@ void webRecipeScraper::scrapRecipe(QNetworkReply *webPagePtr, dishInfo *dishData
 			QString::fromStdString(ingredient.name) + ": " +\
 			QString::fromStdString(ingredient.quantity) + ' ' +\
 			QString::fromStdString(ingredient.quantityInfo) + '\n';
+	return 0;
 }
 
 std::vector<int> webRecipeScraper::naiveStringSearch(std::string text, std::string pattern)

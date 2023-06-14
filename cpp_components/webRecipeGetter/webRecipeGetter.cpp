@@ -55,6 +55,11 @@ void webRecipeGetter::onFinish(QNetworkReply* rep)
 		emit connError();
 		return;
 	}
+	if(0 == rep->bytesAvailable())
+	{
+		emit connError();
+		return;
+	}
 	webRecipeScraper::scrapRecipe(rep, &dishData);
 	rep->deleteLater();
 	if(this->isDishEmpty())
