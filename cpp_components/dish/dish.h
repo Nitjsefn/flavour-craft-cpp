@@ -29,6 +29,8 @@ class Dish
             :dishData{dishName, dishRecipeSteps, dishIndegrients, dishPhotoLink, dishCountry}{};
         Dish(const QString &dishName, const QString &dishCountry, const QString &dishPhotoLink, const QString &path);
             //:dishData{dishName, "dishRecipeSteps", "dishIndegrients", dishPhotoLink, dishCountry}, path(path){};
+        Dish(const QString &dishName, const QString &dishCountry, const QString &path) //path jako id
+            :dishData{dishName, "", "", "", dishCountry}{this->path = path;};
 
         ~Dish();
 
@@ -37,6 +39,7 @@ class Dish
         QString getDishIndegrients() const;
         QString getDishPhotoLink() const;
         QString getDishCountry() const;
+        QString getDishPath() const;
         int getDishIndex() const;
         void loadUpDish();
 

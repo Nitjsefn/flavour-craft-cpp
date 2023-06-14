@@ -199,7 +199,7 @@ Rectangle
 
                 MouseArea
                 {
-                    signal ustawWzor(string wzor)
+                    //signal ustawWzor(string wzor)
                     anchors.fill: parent
                     onClicked:
                     {

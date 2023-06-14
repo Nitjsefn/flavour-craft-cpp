@@ -18,6 +18,60 @@ Rectangle
         id: values
     }
 
+    Connections
+    {
+        target: webSearch_handler
+        function onConnError()
+        {
+            console.log("connection error")
+        }
+    }
+
+    Connections
+    {
+        target: webSearch_handler
+        function onNoRecipesFound()
+        {
+            noResultsWarning.visible = true;
+            console.log("no recipe found")
+        }
+    }
+
+    Rectangle
+    {
+        id:noResultsWarning
+        z:1
+        visible: false
+        anchors.fill: parent
+        color: "#80000000"
+        Rectangle
+        {
+            anchors.centerIn: parent
+            width: 300;
+            height: 150;
+            color: values.buttonColor
+            radius: 9
+            Text
+            {
+                anchors.centerIn: parent.Center
+                verticalAlignment: verticalCenter
+                text: qsTr("No results found.")
+                font.family: "Consolas"
+                font.italic: true
+                font.pointSize: 20
+                color: values.buttonTextColor
+            }
+            MouseArea
+            {
+                anchors.fill: parent
+                onClicked:
+                {
+                    noResultsWarning.visible = false
+                }
+            }
+        }
+    }
+
     Rectangle //searchBar
     {
         id: recipeInputRectangle
@@ -40,7 +94,7 @@ Rectangle
                 leftMargin: 20
                 verticalCenter: parent.verticalCenter
             }
-            source: "qrc:/assets/ui/Assets/iconmonstr-folder-30.svg"
+            source: "qrc:/assets/ui/Assets/iconmonstr-folder-31.svg"
             sourceSize: Qt.size(48, 48)
             fillMode: Image.PreserveAspectFit
         }
@@ -75,7 +129,6 @@ Rectangle
             anchors.rightMargin: 20
             anchors.verticalCenter: parent.verticalCenter
             property bool searchButton: true
-
             Text
             {
                 anchors.centerIn: parent
@@ -91,11 +144,8 @@ Rectangle
                 anchors.fill: parent
                 onClicked:
                 {
-                    console.log("searchButton clicked")
-                    search_handler.searchDish(recipeInput.text)
-
-                    //zsearchowane obiekty niech referencjuje do appendowania nie?
-
+                    webSearch_handler.searchForRecipes(recipeInput.text)
+                    recipeInput.clear()
                     recipeListView.listViewVisible = true
                 }
             }
@@ -121,7 +171,7 @@ Rectangle
         delegate: Rectangle //jak wyglada jeden element
         {
             id: delegatedItemPattern
-            width: parent.width
+            width: searchPage.width/6*4
             height: 50
             color: "#724E91"
             radius: 15
@@ -137,7 +187,9 @@ Rectangle
 
                 Text
                 {
-                    text: model.dishName
+                    id: dishName
+                    text: model.dishName.length > 45 ? model.dishName.slice(0, 40) + "..." : model.dishName
+
                     color: values.buttonColor
                     font.family: "Consolas"
                     font.bold: true
@@ -146,6 +198,7 @@ Rectangle
                     height: parent.height
                     anchors.left: parent.left
                 }
+
                 Text
                 {
                     text: model.dishCountry
@@ -153,7 +206,7 @@ Rectangle
                     font.family: "Consolas"
                     font.bold: true
                     verticalAlignment: Text.AlignVCenter
-                    font.pointSize: 16
+                    font.pointSize: 12
                     height: parent.height
                     anchors.right: parent.right
                 }
@@ -175,16 +228,67 @@ Rectangle
 
                 MouseArea
                 {
+                    //signal ustawWzor(string wzor)
                     anchors.fill: parent
                     onClicked:
                     {
                         recipeListView.listViewVisible = false
-                        search_handler.loadDish(model.index)
+                        search_handler.loadOnlineDish(model.index);
+                        search_handler.clearDishes();
                     }
                 }
             }
         }
     }
 
+    Rectangle
+    {
+        id: dishImageItem
+        visible: false
+        anchors.fill: parent
+        color: "#80000000"
+        Image
+        {
+            id: dishImage
+            //source: "file"
+            property alias pathImage: dishImage.source
+            width: parent.width/3*2
+            height: parent.height/3*2
+            anchors.centerIn: parent
+            MouseArea
+            {
+                anchors.fill: parent
+                onClicked:
+                {
+                    dishImageItem.visible = false
+                    testButton.visible = true
+                    backButton.visible = true
+                    menuButton.visible = true
+                }
+            }
+        }
 
+        Text
+        {
+            id: dishImageTitleText
+            //text: qsTr()
+            font.family: "Consolas"
+            font.bold: true
+            font.pointSize: 12
+            color: values.buttonColor
+            y: dishImage.y + dishImage.height + 10
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+        Text
+        {
+            id: dishImageDescriptionText
+            text: qsTr("kliknij obrazek aby zamknąć")
+            font.family: "Consolas"
+            font.bold: true
+            font.pointSize: 8
+            color: values.buttonColor
+            y: dishImageTitleText.y + dishImageTitleText.height + 2
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+    }
 }

@@ -2,7 +2,6 @@ import QtQuick 2.15
 
 import "qrc:/ui/CustomTextHolder"
 
-
 Rectangle
 {
     id: aboutContainer
@@ -20,8 +19,9 @@ Rectangle
         {
             height: 400 + aboutContainer.height/10
             width: 150 + aboutContainer.width/10
-            aboutText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+            aboutText: "<b>Nitjsefn</b>-<br> Student I roku informatyki, programuje od gimnazjum. Nienawidzi  Qt od pierwszego wejrzenia. Interesuje się mikrokontrolerami, w razie potrzeby zcraftuje powerbanka do laptopa.<br><a href=\"https://github.com/Nitjsefn\">GitHub</a>"
             aboutImage: "qrc:/assets/ui/Assets/karol.png"
+            eLink: "https://github.com/Nitjsefn"
         }
 
         CustomTextHolder

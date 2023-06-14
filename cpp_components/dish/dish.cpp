@@ -112,6 +112,11 @@ QString Dish::getDishCountry() const
     return dishData.dishCountry;
 }
 
+QString Dish::getDishPath() const
+{
+    return this->path;
+}
+
 int Dish::getDishIndex() const
 {
     return index;

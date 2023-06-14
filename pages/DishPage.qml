@@ -1,11 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
-
-import "qrc:/ui/UpperPhoto"
-import "qrc:/ui/AboutDish"
-import "qrc:/ui/DishIngredients"
-
 Rectangle
 {
     color: "#fae3c6"
@@ -30,7 +25,7 @@ Rectangle
     Rectangle
     {
         id: photoContainer
-        //color: "#fae3c6"
+        color: "#fae3c6"
         width: parent.width
         height: parent.height/3
         anchors
@@ -143,9 +138,10 @@ Rectangle
                     height: contentHeight
                     color: "#533B4D"
                     font.family: "Consolas"
-                    font.pointSize: 12
+                    font.pointSize: 14
                     wrapMode: Text.Wrap
                     text: ""
+                    lineHeight: 1.5
                 }
             }
         }

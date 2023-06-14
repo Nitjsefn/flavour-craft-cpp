@@ -1,4 +1,5 @@
 #pragma once
+#define DB_URL_PREFIX "https://cosylab.iiitd.edu.in/recipedb/search_recipeInfo/"
 
 #include "cpp_components/recipeRestHandler/recipeRestHandler.h"
 #include "cpp_components/dish/dish.h"
@@ -19,6 +20,7 @@ class webRecipeGetter : public recipeRestHandler
 		bool isDishEmpty();
 	public slots:
 		void onFinish(QNetworkReply* rep);
+        void getWebRecipeSlot(Dish* dish);
 	public:
 		webRecipeGetter();
 		webRecipeGetter(Dish* dish);
