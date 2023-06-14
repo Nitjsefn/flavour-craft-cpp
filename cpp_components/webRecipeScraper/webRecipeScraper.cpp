@@ -299,6 +299,7 @@ int webRecipeScraper::scrapRecipe(QNetworkReply *webPagePtr, dishInfo *dishData)
 			QString::fromStdString(ingredient.name) + ": " +\
 			QString::fromStdString(ingredient.quantity) + ' ' +\
 			QString::fromStdString(ingredient.quantityInfo) + '\n';
+	return 0;
 }
 
 std::vector<int> webRecipeScraper::naiveStringSearch(std::string text, std::string pattern)
