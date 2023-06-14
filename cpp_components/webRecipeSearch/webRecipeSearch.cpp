@@ -40,6 +40,11 @@ void webRecipeSearch::onFinish(QNetworkReply* rep)
 		emit connError();
 		return;
 	}
+	if(0 == rep->bytesAvailable())
+	{
+		emit connError();
+		return;
+	}
 	webRecipeScraper::scrapRecipesList(rep, &foundRecipes);
 	rep->deleteLater();
 	if(0 == foundRecipes.size())
