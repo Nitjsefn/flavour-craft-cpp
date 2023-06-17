@@ -246,6 +246,7 @@ Rectangle
                     onClicked:
                     {
                         console.log("Add recipe pressed")
+                        mainLoader.source = "qrc:/pages/AddLocalPage.qml"
                         mainWindow.navigationButtons = 1
                     }
                 }
@@ -324,6 +325,7 @@ Rectangle
                     onClicked:
                     {
                         console.log("Delete recipe pressed")
+                        mainLoader.source = "qrc:/pages/RemoveLocalPage.qml"
                         mainWindow.navigationButtons = 1
                     }
                 }

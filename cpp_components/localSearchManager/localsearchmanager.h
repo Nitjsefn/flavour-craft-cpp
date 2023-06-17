@@ -47,6 +47,8 @@ public slots:
     void loadOnlineDish(int index); //do ladowania jednego konkretnego wybrnego online disha
     void clearDishes(); //czyszczenie dishy w ramie
     void loadWebDish(Dish* dish);
+    void createNewDish(QString dishName, QString dishCountry, QString dishTags, QString dishSteps, QString dishIndegrients, QString dishPhotoLink);
+    void deleteDish(int index);
 
 private:
     QList<Dish> dishes;
