@@ -167,7 +167,6 @@ void localSearchManager::loadDish(int index)
                     chosenDish.getDishRecipeSteps(),
                     chosenDish.getDishIndegrients(),
                     chosenDish.getDishPhotoLink()});
-
 }
 
 void localSearchManager::loadOnlineDish(int index)
@@ -195,3 +194,13 @@ void localSearchManager::loadWebDish(Dish* dish)
                     chosenDish.getDishPhotoLink()});
 }
 
+void localSearchManager::createNewDish(QString dishName, QString dishCountry, QString dishTags, QString dishSteps, QString dishIndegrients, QString dishPhotoLink)
+{
+    qDebug()<< dishName<< dishCountry<<dishTags<<dishSteps<<dishIndegrients<<dishPhotoLink;
+}
+
+void localSearchManager::deleteDish(int index)
+{
+    qDebug()<< index;
+    emit loadDishFinished("qrc:/pages/MainPage.qml");
+}

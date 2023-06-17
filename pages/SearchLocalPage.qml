@@ -13,8 +13,6 @@ Rectangle
     anchors.fill: parent
     color: "#11131A"
 
-    property int childProperty: 20
-    signal mySignal(string lol)
     Values
     {
         id: values

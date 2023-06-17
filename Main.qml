@@ -13,6 +13,10 @@ Window
     width: 1260
     height: 840
 
+    Component.onCompleted:
+    {
+        showMaximized();
+    }
 
     minimumWidth: 1260
     minimumHeight: 840
@@ -99,7 +103,7 @@ Window
                 mainLoader.source = mainWindow.previousSource
                 if(mainLoader.source === "qrc:/pages/MainPage.qml")
                 {
-                    console.log("logical value does not depend")
+                    //console.log("logical value does not depend")
                     mainWindow.navigationButtons = 0;
                 }
             }
