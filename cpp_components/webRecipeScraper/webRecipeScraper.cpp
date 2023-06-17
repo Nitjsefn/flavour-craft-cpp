@@ -386,7 +386,8 @@ std::string webRecipeScraper::unicodeToAscii(std::string &src)
 		{
 			if(';' == c)
 			{
-				//sb.add(unicode special char from specialCharNum)
+				if(webRecipeScraper::unicodeMap.contains(specialCharNum))
+					sb.add(webRecipeScraper::unicodeMap[specialCharNum]);
 				specialCharLvl = 0;
 				continue;
 			}
