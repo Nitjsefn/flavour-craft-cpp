@@ -20,16 +20,17 @@ namespace webRecipeScraper
 		QString cuisine;
 	};
 
-	static std::map<int, char> unicodeMap = 
+	static std::map<std::string, char> unicodeMap = 
 	{
-		{ 33, '!' },
-		{ 34, '"' },
-		{ 35, '#' },
-		{ 36, '$' },
-		{ 37, '%' },
-		{ 38, '&' },
-		{ 39, '\'' },
-		{ 59, ';' }
+		{ "33", '!' },
+		{ "34", '"' },
+		{ "35", '#' },
+		{ "36", '$' },
+		{ "37", '%' },
+		{ "38", '&' },
+		{ "amp", '&' },
+		{ "39", '\'' },
+		{ "59", ';' }
 	};
 
 	int scrapRecipesList(QNetworkReply* webPagePtr, std::vector<foundRecipe>* foundRecipes);
