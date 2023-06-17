@@ -358,3 +358,56 @@ std::string webRecipeScraper::humanizeSteps(std::string src)
     }
     return sb.build();
 }
+
+std::string webRecipeScraper::unicodeToAscii(std::string &src)
+{
+	stringBuilder sb;
+	int srcL = src.length();
+	int specialCharLvl = 0;
+	int specialCharNum = 0;
+	for(char c : src)
+	{
+		if(1 == specialCharLvl)
+		{
+			if('#' == c)
+			{
+				specialCharNum = 0;
+				specialCharLvl++;
+			}
+			else
+			{
+				sb.add('&');
+				sb.add(c);
+				specialCharLvl = 0;
+			}
+			continue;
+		}
+		if(2 == specialCharLvl)
+		{
+			if(';' == c)
+			{
+				//sb.add(unicode special char from specialCharNum)
+				specialCharLvl = 0;
+				continue;
+			}
+			if('0' > c || '9' < c)
+			{
+				sb.add('&');
+				sb.add('#');
+				specialCharLvl = 0;
+				continue;
+			}
+			specialCharNum *= 10;
+			specialCharNum += (c - '0');
+			continue;
+		}
+		if('&' == c)
+		{
+			specialCharLvl++;
+			continue;
+		}
+		sb.add(c);
+	}
+	return sb.build();
+}
+

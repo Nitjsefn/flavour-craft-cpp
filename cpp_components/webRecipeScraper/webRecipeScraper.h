@@ -26,4 +26,5 @@ namespace webRecipeScraper
 	void stringify(QIODevice* in, std::string &out);
 	std::vector<int> naiveStringSearch(std::string text, std::string pattern);
 	std::string humanizeSteps(std::string src);
+	std::string unicodeToAscii(std::string &src);
 };
