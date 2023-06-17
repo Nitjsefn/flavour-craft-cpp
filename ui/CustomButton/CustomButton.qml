@@ -40,7 +40,7 @@ Rectangle
             anchors.fill: parent
             onClicked:
             {
-                console.log("searchButton clicked")
+                //console.log("searchButton clicked")
             }
         }
   */

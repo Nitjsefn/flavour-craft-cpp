@@ -13,7 +13,7 @@ Rectangle
         target: search_handler
         function onSetUpDish(aboutDish)
         {
-            console.log(aboutDish[0],aboutDish[2],aboutDish[3],aboutDish[4])
+            //console.log(aboutDish[0],aboutDish[2],aboutDish[3],aboutDish[4])
             dishTitle.text = aboutDish[0]
             //= aboutDish[1]
             descriptionText.text = aboutDish[2]
