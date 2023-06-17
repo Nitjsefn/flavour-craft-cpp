@@ -365,21 +365,29 @@ std::string webRecipeScraper::unicodeToAscii(std::string &src)
 	stringBuilder sb;
 	int srcL = src.length();
 	int specialCharLvl = 0;
-	int specialCharNum = 0;
+	std::string specialChar = "";
 	for(char c : src)
 	{
 		if(1 == specialCharLvl)
 		{
 			if('#' == c)
 			{
-				specialCharNum = 0;
+				specialChar = "";
 				specialCharLvl++;
+			}
+			else if('A' > c || 'z' < c)
+			{
+				if(webRecipeScraper::unicodeMap.contains(specialChar))
+					sb.add(webRecipeScraper::unicodeMap[specialChar]);
+				specialCharLvl = 0;
+				continue;
 			}
 			else
 			{
-				sb.add('&');
-				sb.add(c);
-				specialCharLvl = 0;
+				//sb.add('&');
+				//sb.add(c);
+				//specialCharLvl = 0;
+				specialChar += c;
 			}
 			continue;
 		}
@@ -387,8 +395,8 @@ std::string webRecipeScraper::unicodeToAscii(std::string &src)
 		{
 			if(';' == c)
 			{
-				if(webRecipeScraper::unicodeMap.contains(specialCharNum))
-					sb.add(webRecipeScraper::unicodeMap[specialCharNum]);
+				if(webRecipeScraper::unicodeMap.contains(specialChar))
+					sb.add(webRecipeScraper::unicodeMap[specialChar]);
 				specialCharLvl = 0;
 				continue;
 			}
@@ -399,8 +407,9 @@ std::string webRecipeScraper::unicodeToAscii(std::string &src)
 				specialCharLvl = 0;
 				continue;
 			}
-			specialCharNum *= 10;
-			specialCharNum += (c - '0');
+			//specialCharNum *= 10;
+			//specialCharNum += (c - '0');
+			specialChar += c;
 			continue;
 		}
 		if('&' == c)
