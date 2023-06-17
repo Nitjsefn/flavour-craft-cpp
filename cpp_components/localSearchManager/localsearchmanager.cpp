@@ -129,7 +129,7 @@ void localSearchManager::searchLocalDish(QString searchedText)
             //qDebug()<< "WAZNE tags"<<tags;
             //qDebug()<< "WAZNE dishPhotoLink"<<dishPhotoLink;
 
-            if(tags.contains(searchedText))
+            if(tags.toLower().contains(searchedText.toLower()))
                 addDish(Dish(dishName,dishCountry,dishPhotoLink,dishPath));
         }
     }
@@ -197,10 +197,45 @@ void localSearchManager::loadWebDish(Dish* dish)
 void localSearchManager::createNewDish(QString dishName, QString dishCountry, QString dishTags, QString dishSteps, QString dishIndegrients, QString dishPhotoLink)
 {
     qDebug()<< dishName<< dishCountry<<dishTags<<dishSteps<<dishIndegrients<<dishPhotoLink;
+    QString path = systemManager::documentsPath + "/FlavourCraft/data/" + dishName + ".txt"; // Wprowadź ścieżkę do docelowego pliku
+
+    QFile file(path);
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text))
+    {
+        QTextStream stream(&file);
+
+        // Zapisz dane do pliku w odpowiednim formacie
+        stream << dishName << "," << dishCountry << ",";
+        stream << dishTags << "˘";
+        stream << dishSteps << "˘";
+        stream << dishIndegrients << "˘";
+        stream << dishPhotoLink;
+
+        file.close();
+        qDebug() << "Plik został utworzony: " << path;
+        systemManager::createDirectories();
+    }
+    else
+    {
+        qDebug() << "Błąd podczas tworzenia pliku: " << file.errorString();
+    }
+    //place for update cache function
 }
 
 void localSearchManager::deleteDish(int index)
 {
     qDebug()<< index;
+    QString filePath = dishes.at(index).getDishPath();
+    QFile file(filePath);
+    if (file.remove())
+    {
+        qDebug() << "Plik został usunięty: " << filePath;
+        systemManager::createDirectories();
+    }
+    else
+    {
+        qDebug() << "Błąd podczas usuwania pliku: " << file.errorString();
+    }
+
     emit loadDishFinished("qrc:/pages/MainPage.qml");
 }

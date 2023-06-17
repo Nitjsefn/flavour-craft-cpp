@@ -301,7 +301,7 @@ Rectangle
                     }
                     verticalAlignment: TextInput.AlignVCenter
                     wrapMode: TextInput.Wrap
-                    maximumLength: 32
+                    //maximumLength: 50
                     font.family: "Consolas"
                     font.italic: true
                     font.pointSize: 16

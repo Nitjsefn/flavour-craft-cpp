@@ -13,7 +13,7 @@
 int main(int argc, char *argv[])
 {
     systemManager::checkSystem();
-    qDebug()<< systemManager::getDocumentsPath();
+    //qDebug()<< systemManager::getDocumentsPath();
     systemManager::createDirectories();
 
     QGuiApplication app(argc, argv);
