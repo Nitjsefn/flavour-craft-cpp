@@ -34,7 +34,8 @@ int webRecipeScraper::scrapRecipesList(QNetworkReply* webPagePtr, std::vector<fo
         {
             int i = 0;
             while(line[i] == ' ' || line[i] == '\t') i++;
-            recipe.name = QString::fromStdString(line.substr(i));
+			std::string tempStr = line.substr(i);
+            recipe.name = QString::fromStdString(unicodeToAscii(tempStr));
             found = false;
             continue;
         }
@@ -290,15 +291,15 @@ int webRecipeScraper::scrapRecipe(QNetworkReply *webPagePtr, dishInfo *dishData)
 		recipe.img = "https://cosylab.iiitd.edu.in/recipedb/static/recipe_temp.jpg";
 	if(!trimStartsWith(recipe.img, "https://"))
 		recipe.img = "";
-	dishData->dishName = QString::fromStdString(recipe.name);
-	dishData->dishRecipeSteps = QString::fromStdString(humanizeSteps(recipe.steps));
-	dishData->dishCountry = QString::fromStdString(recipe.cuisine);
-	dishData->dishPhotoLink = QString::fromStdString(recipe.img);
+	dishData->dishName = QString::fromStdString(unicodeToAscii(recipe.name));
+	dishData->dishRecipeSteps = QString::fromStdString(humanizeSteps(unicodeToAscii(recipe.steps)));
+	dishData->dishCountry = QString::fromStdString(unicodeToAscii(recipe.cuisine));
+	dishData->dishPhotoLink = QString::fromStdString(unicodeToAscii(recipe.img));
 	for(auto ingredient : recipe.ingredients)
 		dishData->dishIndegrients +=\
-			QString::fromStdString(ingredient.name) + ": " +\
+			QString::fromStdString(unicodeToAscii(ingredient.name)) + ": " +\
 			QString::fromStdString(ingredient.quantity) + ' ' +\
-			QString::fromStdString(ingredient.quantityInfo) + '\n';
+			QString::fromStdString(unicodeToAscii(ingredient.quantityInfo)) + '\n';
 	return 0;
 }
 
@@ -358,3 +359,66 @@ std::string webRecipeScraper::humanizeSteps(std::string src)
     }
     return sb.build();
 }
+
+std::string webRecipeScraper::unicodeToAscii(std::string &src)
+{
+	stringBuilder sb;
+	int srcL = src.length();
+	int specialCharLvl = 0;
+	std::string specialChar = "";
+	for(char c : src)
+	{
+		if(1 == specialCharLvl)
+		{
+			if('#' == c)
+			{
+				specialChar = "";
+				specialCharLvl++;
+			}
+			else if('A' > c || 'z' < c)
+			{
+				if(webRecipeScraper::unicodeMap.contains(specialChar))
+					sb.add(webRecipeScraper::unicodeMap[specialChar]);
+				specialCharLvl = 0;
+				continue;
+			}
+			else
+			{
+				//sb.add('&');
+				//sb.add(c);
+				//specialCharLvl = 0;
+				specialChar += c;
+			}
+			continue;
+		}
+		if(2 == specialCharLvl)
+		{
+			if(';' == c)
+			{
+				if(webRecipeScraper::unicodeMap.contains(specialChar))
+					sb.add(webRecipeScraper::unicodeMap[specialChar]);
+				specialCharLvl = 0;
+				continue;
+			}
+			if('0' > c || '9' < c)
+			{
+				sb.add('&');
+				sb.add('#');
+				specialCharLvl = 0;
+				continue;
+			}
+			//specialCharNum *= 10;
+			//specialCharNum += (c - '0');
+			specialChar += c;
+			continue;
+		}
+		if('&' == c)
+		{
+			specialCharLvl++;
+			continue;
+		}
+		sb.add(c);
+	}
+	return sb.build();
+}
+

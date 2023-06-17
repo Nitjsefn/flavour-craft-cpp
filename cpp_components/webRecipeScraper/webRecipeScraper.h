@@ -6,6 +6,7 @@
 #include <vector>
 #include <iostream>
 #include <sstream>
+#include <map>
 #include "cpp_components/dish/dish.h"
 #include "cpp_components/stringBuilder/stringBuilder.h"
 
@@ -19,6 +20,19 @@ namespace webRecipeScraper
 		QString cuisine;
 	};
 
+	static std::map<std::string, char> unicodeMap = 
+	{
+		{ "33", '!' },
+		{ "34", '"' },
+		{ "35", '#' },
+		{ "36", '$' },
+		{ "37", '%' },
+		{ "38", '&' },
+		{ "amp", '&' },
+		{ "39", '\'' },
+		{ "59", ';' }
+	};
+
 	int scrapRecipesList(QNetworkReply* webPagePtr, std::vector<foundRecipe>* foundRecipes);
 	int scrapRecipe(QNetworkReply* webPage, dishInfo* dishData);
 	bool trimStartsWith(std::string &text, std::string pat);
@@ -26,4 +40,5 @@ namespace webRecipeScraper
 	void stringify(QIODevice* in, std::string &out);
 	std::vector<int> naiveStringSearch(std::string text, std::string pattern);
 	std::string humanizeSteps(std::string src);
+	std::string unicodeToAscii(std::string &src);
 };
