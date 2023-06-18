@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.16)
 project(FlavorCraft VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_STANDARD 20)
 
 find_package(Qt6 6.4 REQUIRED COMPONENTS Quick)
 
@@ -37,7 +38,6 @@ qt_add_executable(appFlavorCraft
 
     cpp_components/webRecipeGetter/webRecipeGetter.cpp
     cpp_components/webRecipeGetter/webRecipeGetter.h
-
 
     ${QT_RESOURCES}
 )

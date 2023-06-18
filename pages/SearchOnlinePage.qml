@@ -272,7 +272,6 @@ Rectangle
                 }
             }
         }
-
         Text
         {
             id: dishImageTitleText

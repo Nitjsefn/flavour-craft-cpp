@@ -44,6 +44,15 @@ Window
             navigationButtons = 0
         if(mainWindow.previousSource === "qrc:/pages/DishPage.qml")
             mainWindow.previousSource = "qrc:/pages/MainPage.qml"
+        //addLocaleInternetRecipeButton
+        if(mainWindow.previousSource == "qrc:/pages/SearchOnlinePage.qml" && mainWindow.currentSource == "qrc:/pages/DishPage.qml")
+        {
+            addInternetRecipeToLocal.visible = true
+        }
+        else
+        {
+            addInternetRecipeToLocal.visible = false
+        }
     }
 
     Connections
@@ -66,13 +75,13 @@ Window
     }
 
     Connections
+    {
+        target: webSearch_getter
+        function onFinished(source)
         {
-            target: webSearch_getter
-            function onFinished(source)
-            {
-                mainLoader.source = "qrc:/pages/DishPage.qml";
-            }
+            mainLoader.source = "qrc:/pages/DishPage.qml";
         }
+    }
 
     Values
     {
@@ -137,39 +146,32 @@ Window
         }
     }
 
-//    CustomButton
-//    {
-//        id: testButton
-//        x: parent.width - width - menuButton.width - backButton.width - 24 - 24 - 24
-//        y: parent.height - height - 24
-//        property int sourceId: 0
-//        Text
-//        {
-//            color: values.buttonTextColor
-//            text: "Test"
-//            font.bold: true
-//            verticalAlignment: Text.AlignVCenter
-//            horizontalAlignment: Text.AlignHCenter
-//            anchors.centerIn: parent
-//            font.pointSize: 16
-//        }
-//        MouseArea
-//        {
-//            anchors.fill: parent
-//            onClicked:
-//            {
-//                if(testButton.sourceId == 0)
-//                {
-//                    mainLoader.source = "qrc:/pages/DishPage.qml"
-//                    testButton.sourceId = 1
-//                }
-//                else
-//                {
-//                    mainLoader.source = "qrc:/pages/MainPage.qml"
-//                    testButton.sourceId = 0
-//                }
-//            }
-//        }
-//    }
+    CustomButton
+    {
+        id: addInternetRecipeToLocal
+        x: parent.width - width - menuButton.width - backButton.width - 24 - 24 - 24
+        y: parent.height - height - 24
+        property int sourceId: 0
+        Text
+        {
+            color: values.buttonTextColor
+            text: "Dodaj\nlokalnie"
+            font.bold: true
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            anchors.centerIn: parent
+            font.pointSize: 14
+        }
+
+        MouseArea
+        {
+            anchors.fill: parent
+            onClicked:
+            {
+                //console.log("elo ziomeczku to znowu ja bogaj")
+                search_handler.addOnlineDish();
+            }
+        }
+    }
 
 }

@@ -239,3 +239,8 @@ void localSearchManager::deleteDish(int index)
 
     emit loadDishFinished("qrc:/pages/MainPage.qml");
 }
+
+void localSearchManager::addOnlineDish()
+{
+    //qDebug()<< "grgml";
+}

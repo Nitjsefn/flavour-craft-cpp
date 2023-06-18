@@ -45,10 +45,11 @@ public slots:
     void searchOnlineDish(std::vector<webRecipeScraper::foundRecipe> foundRecipes); //do obslugi onlinowego backendu
     void loadDish(int index); //do ladowania jednego konkretnego wybranego lokalsa disha
     void loadOnlineDish(int index); //do ladowania jednego konkretnego wybrnego online disha
-    void clearDishes(); //czyszczenie dishy w ramie
     void loadWebDish(Dish* dish);
+    void clearDishes(); //czyszczenie dishy w ramie
     void createNewDish(QString dishName, QString dishCountry, QString dishTags, QString dishSteps, QString dishIndegrients, QString dishPhotoLink);
     void deleteDish(int index);
+    void addOnlineDish();
 
 private:
     QList<Dish> dishes;

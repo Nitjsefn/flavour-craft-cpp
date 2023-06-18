@@ -6,3 +6,5 @@ CMakeLists.txt.user
 CMakeLists.txt.user.a046dec
 CMakeLists.txt.user
 *.user
+CMakeLists.txt
+*.user
