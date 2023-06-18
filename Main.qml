@@ -169,7 +169,93 @@ Window
             onClicked:
             {
                 //console.log("elo ziomeczku to znowu ja bogaj")
-                search_handler.addOnlineDish();
+                webTagsInput.visible = true
+            }
+        }
+    }
+
+    Rectangle
+    {
+        id: webTagsInput
+        visible: false
+        color: "#40000000"
+        width: parent.width
+        height: 64
+        anchors.fill: parent
+        MouseArea
+        {
+            anchors.fill: parent
+        }
+        Rectangle
+        {
+            visible: webTagsInput.visible ? true : false
+            anchors.centerIn: parent
+            width:parent.width/3
+            height: 64
+            radius: 9
+            color: "#724E91"
+            Text
+            {
+                id: webTagsInputText
+                height: parent.height
+                width: contentWidth + 20
+                text: "tags:   "
+                font.family: "Consolas"
+                font.italic: true
+                font.pointSize: 16
+                color: values.buttonColor
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+            }
+
+            TextInput
+            {
+                id: webTagsInputTextInput
+                width: parent.width- webTagsInputText.width - 40
+                height: parent.height - 10
+                anchors
+                {
+                    leftMargin: 20
+                    rightMargin: 20
+                    verticalCenter: parent.verticalCenter
+                    left: webTagsInputText.right
+                }
+                verticalAlignment: TextInput.AlignVCenter
+                wrapMode: TextInput.Wrap
+                maximumLength: 32
+                font.family: "Consolas"
+                font.italic: true
+                font.pointSize: 16
+                color: values.buttonColor
+            }
+
+        }
+        CustomButton
+        {
+            id: xd
+            x: parent.width - width - menuButton.width - backButton.width - 24 - 24 - 24
+            y: parent.height - height - 24
+            property int sourceId: 0
+            Text
+            {
+                color: values.buttonTextColor
+                text: "Dodaj"
+                font.bold: true
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                anchors.centerIn: parent
+                font.pointSize: 14
+            }
+
+            MouseArea
+            {
+                anchors.fill: parent
+                onClicked:
+                {
+                    //console.log("elo ziomeczku to znowu ja bogaj")
+                    search_handler.addOnlineDish(webTagsInputTextInput.text);
+                    webTagsInput.visible = false
+                }
             }
         }
     }
