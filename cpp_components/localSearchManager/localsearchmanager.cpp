@@ -171,10 +171,10 @@ void localSearchManager::loadDish(int index)
 
 void localSearchManager::loadOnlineDish(int index)
 {
-    qDebug()<< "index: "<<index;
+    //qDebug()<< "index: "<<index;
     chosenDish = dishes[index];
     clearDishes();
-    qDebug()<< "cleared";
+    //qDebug()<< "cleared";
     emit getWebDish(&chosenDish);
 }
 
@@ -240,7 +240,15 @@ void localSearchManager::deleteDish(int index)
     emit loadDishFinished("qrc:/pages/MainPage.qml");
 }
 
-void localSearchManager::addOnlineDish()
+void localSearchManager::addOnlineDish(QString tags)
 {
-    //qDebug()<< "grgml";
+    //qDebug() << tags;
+    QStringList parts = this->chosenDish.getDishCountry().split(">>");
+    QString country = parts.last();
+    createNewDish(this->chosenDish.getDishName(),
+                country,
+                tags,
+                this->chosenDish.getDishRecipeSteps(),
+                this->chosenDish.getDishIndegrients(),
+                this->chosenDish.getDishPhotoLink());
 }

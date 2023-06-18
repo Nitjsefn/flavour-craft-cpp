@@ -49,7 +49,7 @@ public slots:
     void clearDishes(); //czyszczenie dishy w ramie
     void createNewDish(QString dishName, QString dishCountry, QString dishTags, QString dishSteps, QString dishIndegrients, QString dishPhotoLink);
     void deleteDish(int index);
-    void addOnlineDish();
+    void addOnlineDish(QString tags);
 
 private:
     QList<Dish> dishes;

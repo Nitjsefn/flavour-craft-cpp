@@ -149,6 +149,7 @@ Rectangle
                 anchors.fill: parent
                 onClicked:
                 {
+                    search_handler.clearDishes();
                     webSearch_handler.searchForRecipes(recipeInput.text)
                     recipeInput.clear()
                     recipeListView.listViewVisible = true
