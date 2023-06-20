@@ -1,39 +1,52 @@
+
 #ifndef DISH_H
 #define DISH_H
 
-#include <QObject>
 #include <QString>
 
 
 
-
-class Dish: public QObject
+struct dishInfo
 {
-    Q_OBJECT
-    public:
-        explicit Dish(QObject *parent = nullptr);
+    QString dishName;
+    QString dishRecipeSteps;
+    QString dishIndegrients;
+    QString dishPhotoLink;
+    QString dishCountry;
+};
 
-        //Dish();
-        Dish(QString dishName,
-             QString dishCousine,
-             QString dishDescription,
-             QString dishIndegrients,
-             int dishLevel);
+
+
+class Dish
+{
+    public:
+
+        Dish();
+        Dish(QString path);
+        Dish(const QString &dishName, const QString &dishRecipeSteps, const QString &dishIndegrients, const QString &dishPhotoLink, const QString &dishCountry, int index)
+            :dishData{dishName, dishRecipeSteps, dishIndegrients, dishPhotoLink, dishCountry}, index(index){};
+        Dish(const QString &dishName, const QString &dishRecipeSteps, const QString &dishIndegrients, const QString &dishPhotoLink, const QString &dishCountry)
+            :dishData{dishName, dishRecipeSteps, dishIndegrients, dishPhotoLink, dishCountry}{};
+        Dish(const QString &dishName, const QString &dishCountry, const QString &dishPhotoLink, const QString &path);
+            //:dishData{dishName, "dishRecipeSteps", "dishIndegrients", dishPhotoLink, dishCountry}, path(path){};
+        Dish(const QString &dishName, const QString &dishCountry, const QString &path) //path jako id
+            :dishData{dishName, "", "", "", dishCountry}{this->path = path;};
 
         ~Dish();
 
-    public slots:
-        void loadDish(QString dish);
-        void httpreq();
+        QString getDishName() const;
+        QString getDishRecipeSteps() const;
+        QString getDishIndegrients() const;
+        QString getDishPhotoLink() const;
+        QString getDishCountry() const;
+        QString getDishPath() const;
+        int getDishIndex() const;
+        void loadUpDish();
 
     private:
-        QString dishName;
-        QString dishCousine;
-        QString dishDescription;
-        QString dishIndegrients;
-        int dishLevel;
-
-
+        dishInfo dishData;
+        QString path;
+        int index;
 };
 
 #endif // DISH_H

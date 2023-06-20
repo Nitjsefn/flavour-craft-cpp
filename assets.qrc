@@ -1,13 +1,27 @@
 <RCC>
     <qresource prefix="/assets">
         <file>ui/Assets/OIG.png</file>
-        <file>ui/Assets/sushi.jpg</file>
+        <file>ui/Assets/iconmonstr-info-7.svg</file>
+        <file>ui/Assets/iconmonstr-cloud-32.svg</file>
+        <file>ui/Assets/iconmonstr-folder-30.svg</file>
+        <file>ui/Assets/tlo2.png</file>
+        <file>ui/Assets/jakub.png</file>
+        <file>ui/Assets/karol.png</file>
+        <file>ui/Assets/iconmonstr-photo-camera-5.svg</file>
+        <file>ui/Assets/iconmonstr-folder-31.svg</file>
+        <file>ui/Assets/iconmonstr-folder-24.svg</file>
+        <file>ui/Assets/iconmonstr-trash-can-lined.svg</file>
     </qresource>
     <qresource prefix="/">
-        <file>ui/UpperPhoto/UpperPhoto.qml</file>
-        <file>ui/AboutDish/AboutDish.qml</file>
-        <file>ui/DishIngredients/DishIngredients.qml</file>
         <file>pages/MainPage.qml</file>
-        <file>pages/TestPage.qml</file>
+        <file>pages/DishPage.qml</file>
+        <file>pages/AboutPage.qml</file>
+        <file>ui/CustomButton/CustomButton.qml</file>
+        <file>ui/Values/Values.qml</file>
+        <file>pages/SearchLocalPage.qml</file>
+        <file>ui/CustomTextHolder/CustomTextHolder.qml</file>
+        <file>pages/SearchOnlinePage.qml</file>
+        <file>pages/AddLocalPage.qml</file>
+        <file>pages/RemoveLocalPage.qml</file>
     </qresource>
 </RCC>
