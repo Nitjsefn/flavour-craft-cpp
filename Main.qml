@@ -10,16 +10,16 @@ import "qrc:/pages"
 Window
 {
     id: mainWindow
-    width: 1260
-    height: 840
+    width: 1280
+    height: 720
 
-    Component.onCompleted:
+    /*Component.onCompleted:
     {
         showMaximized();
-    }
+    }*/
 
-    minimumWidth: 1260
-    minimumHeight: 840
+    minimumWidth: 840
+    minimumHeight: 640
 
     visible: true
     title: qsTr("FlavourCraft")
