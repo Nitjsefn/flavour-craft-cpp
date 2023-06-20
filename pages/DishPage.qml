@@ -41,6 +41,18 @@ Rectangle
             fillMode: Image.PreserveAspectCrop
             source: "https://images.media-allrecipes.com/userphotos/560x315/4537037.jpg"
         }
+        MouseArea
+        {
+            anchors.fill: parent
+            onClicked:
+            {
+                dishImage.source = dishPhoto.source
+                dishImageItem.visible = true
+                addInternetRecipeToLocal.visible = false
+                backButton.visible = false
+                menuButton.visible = false
+            }
+        }
     }
 
     Rectangle
@@ -200,9 +212,60 @@ Rectangle
         }
     }
 
+    Rectangle
+    {
+        id: dishImageItem
+        visible: false
+        anchors.fill: parent
+        color: "#80000000"
+        Image
+        {
+            id: dishImage
+            //source: "file"
+            property alias pathImage: dishImage.source
+            width: parent.width/3*2
+            height: parent.height/3*2
+            anchors.centerIn: parent
+            MouseArea
+            {
+                anchors.fill: parent
+                onClicked:
+                {
+                    dishImageItem.visible = false
+                    if(mainLoader.source === "qrc:/pages/SearchOnlinePage.qml")
+                        addInternetRecipeToLocal.visible = true
+                    backButton.visible = true
+                    menuButton.visible = true
+                }
+            }
+        }
 
-
+        Text
+        {
+            id: dishImageTitleText
+            text: qsTr(dishTitle.text)
+            font.family: "Consolas"
+            font.bold: true
+            font.pointSize: 12
+            color: values.buttonColor
+            y: dishImage.y + dishImage.height + 10
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+        Text
+        {
+            id: dishImageDescriptionText
+            text: qsTr("kliknij obrazek aby zamknąć")
+            font.family: "Consolas"
+            font.bold: true
+            font.pointSize: 8
+            color: values.buttonColor
+            y: dishImageTitleText.y + dishImageTitleText.height + 2
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+    }
 }
+
+
 
 
 
